@@ -27,14 +27,16 @@ const MediaCard = ({ date, path, rating, thumbnail, title }: MovieCardType) => {
   return (
     <article className="flex flex-col h-full">
       <div className="relative">
-        <LazyLoadImage
-          src={image}
-          alt={title}
-          className="w-full h-[200px] min-[400px]:h-[250px] rounded-lg"
-          loading="lazy"
-          effect="blur"
-          width={"100%"}
-        />
+        <Link to={path} title={title}>
+          <LazyLoadImage
+            src={image}
+            alt={title}
+            className="w-full h-[200px] min-[400px]:h-[250px] rounded-lg"
+            loading="lazy"
+            effect="blur"
+            width={"100%"}
+          />
+        </Link>
 
         <div className="absolute bottom-2 left-1 inline-flex items-center justify-center pointer-events-none">
           <CircularProgress

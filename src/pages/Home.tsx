@@ -51,26 +51,28 @@ const Home = () => {
       </header>
 
       <div className="container py-20 flex flex-col gap-y-10 sm:gap-y-20">
-        <MediaCarousel
+        <MediaCarousel<TimeType>
           title="Trending"
           filters={[
             { title: "Today", id: "day" },
             { title: "This Week", id: "week" },
           ]}
           data={trendingResult.data?.results || []}
-          onChange={(filter) => setTrendingTime(filter.id as TimeType)}
+          filterValue={trendingTime}
+          setFilterValue={(filter) => setTrendingTime(filter)}
           isLoading={trendingResult.isLoading || trendingResult.isFetching}
           isSuccess={trendingResult.isSuccess}
         />
 
-        <MediaCarousel
+        <MediaCarousel<MediaType>
           title="Popular"
           filters={[
             { title: "Movies", id: "movie" },
             { title: "Tv Shows", id: "tv" },
           ]}
           data={popularResult.data?.results || []}
-          onChange={(filter) => setPopularType(filter.id as MediaType)}
+          filterValue={popularType}
+          setFilterValue={(filter) => setPopularType(filter)}
           isLoading={popularResult.isLoading || popularResult.isFetching}
           isSuccess={popularResult.isSuccess}
         />

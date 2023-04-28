@@ -1,40 +1,38 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { Keyboard, Mousewheel, Navigation } from "swiper";
 import { Swiper, SwiperRef, SwiperSlide } from "swiper/react";
 import { Media } from "../../types/media.type";
 import MediaCard, { MediaCardSkeleton } from "./cards/MediaCard";
 
-type CarouselFilter = {
+type CarouselFilter<T = string> = {
   title: string;
-  id: string;
+  id: T;
 };
 
-type MediaCarouselType = {
-  filters: CarouselFilter[];
+type MediaCarouselType<T = string> = {
+  filters: CarouselFilter<T>[];
   title: string;
   data: Media[];
-  onChange?: (filter: CarouselFilter) => any;
+  filterValue: T;
+  setFilterValue: (filter: T) => any;
   isLoading: boolean;
   isSuccess: boolean;
 };
 
-const MediaCarousel = ({
+const MediaCarousel = <T extends string>({
+  filterValue,
+  setFilterValue,
   filters = [],
   title = "",
-  onChange = () => {},
   data = [],
   isLoading = true,
   isSuccess = false,
-}: MediaCarouselType) => {
-  const [filterItem, setFilterItem] = useState<CarouselFilter | undefined>(
-    filters[0]
-  );
+}: MediaCarouselType<T>) => {
   const carouselRef = useRef<SwiperRef>(null);
 
-  const onChangeFilter = (filter: CarouselFilter) => {
-    setFilterItem(filter);
-    onChange(filter);
+  const onChangeFilter = (filter: CarouselFilter<T>) => {
+    setFilterValue(filter.id);
     // reset carousel
     carouselRef.current?.swiper.slideTo(0);
   };
@@ -47,9 +45,9 @@ const MediaCarousel = ({
           {filters.map((filter) => (
             <button
               key={filter.id}
-              value={filter.id}
+              value={filter.title}
               className={`px-3 py-1 text-sm uppercase  rounded font-medium ${
-                filterItem?.id === filter.id
+                filterValue === filter.id
                   ? "bg-primary-600"
                   : "hover:bg-secondary-700"
               }`}
