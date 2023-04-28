@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { blue, green, orange, red, slate, yellow } from "tailwindcss/colors";
 
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
@@ -13,6 +14,17 @@ export default {
           xl: "5rem",
           "2xl": "6rem",
         },
+      },
+      colors: {
+        // main colors
+        primary: orange,
+        secondary: slate,
+
+        // action colors
+        success: green,
+        error: red,
+        warning: yellow,
+        info: blue,
       },
     },
   },
