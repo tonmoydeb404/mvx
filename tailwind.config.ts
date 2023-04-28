@@ -1,6 +1,6 @@
 import tailwindCssForms from "@tailwindcss/forms";
 import type { Config } from "tailwindcss";
-import { blue, green, orange, red, slate, yellow } from "tailwindcss/colors";
+import { blue, green, red, slate, yellow } from "tailwindcss/colors";
 
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
@@ -18,7 +18,7 @@ export default {
       },
       colors: {
         // main colors
-        primary: orange,
+        primary: red,
         secondary: slate,
 
         // action colors
