@@ -3,7 +3,8 @@ import "swiper/swiper-bundle.css";
 import { useLazyGetPopularQuery } from "../api/popularApi";
 import { useLazyGetTrendingQuery } from "../api/trendingApi";
 import MediaCarousel from "../common/components/MediaCarousel";
-import { MediaType, TimeType } from "../types/tmdb.type";
+import { MediaType } from "../types/media.type";
+import { TimeType } from "../types/tmdb.type";
 
 const Home = () => {
   const [trendingTime, setTrendingTime] = useState<TimeType>("day");

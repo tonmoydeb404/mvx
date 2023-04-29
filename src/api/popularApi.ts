@@ -1,7 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import { tmdbQuery } from "../app/settings";
-import { Media } from "../types/media.type";
-import type { MediaType, TMDBResponse } from "../types/tmdb.type";
+import { Media, MediaType } from "../types/media.type";
+import type { TMDBResponse } from "../types/tmdb.type";
 
 export const popularApi = createApi({
   reducerPath: "popularApi",

@@ -1,4 +1,3 @@
-export type MediaType = "movie" | "tv" | "person";
 export type TimeType = "day" | "week";
 
 export type TMDBResponse<T = { [key: string]: any }> = {

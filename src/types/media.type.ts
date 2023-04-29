@@ -1,4 +1,4 @@
-import { MediaType } from "./tmdb.type";
+export type MediaType = "movie" | "tv" | "person";
 
 export type Media = {
   type: MediaType;

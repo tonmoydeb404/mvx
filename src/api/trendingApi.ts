@@ -1,7 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import { tmdbQuery } from "../app/settings";
-import { Media } from "../types/media.type";
-import type { MediaType, TMDBResponse, TimeType } from "../types/tmdb.type";
+import { Media, MediaType } from "../types/media.type";
+import type { TMDBResponse, TimeType } from "../types/tmdb.type";
 
 type GetTrendingArgs = { type: MediaType | "all"; time: TimeType };
 
