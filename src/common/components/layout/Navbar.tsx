@@ -1,9 +1,9 @@
 import { HiMenu, HiSearch } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <nav className="border-b border-b-white/20 fixed top-0 left-0 w-full z-[100]">
+    <nav className="border-b border-b-secondary-50/10 fixed top-0 left-0 w-full z-[100]">
       <div className="container flex items-stretch h-[50px] gap-10">
         <Link to={"/"} className="font-bold text-2xl self-center">
           <span className="text-primary-600">M</span>VX
@@ -11,28 +11,19 @@ const Navbar = () => {
 
         <ul className="hidden md:flex items-stretch gap-2 font-medium">
           <li className="h-full flex items-stretch">
-            <Link
-              className="px-4 py-2 relative after:w-full after:h-[2px] after:absolute after:left-0 after:bottom-0 after:bg-primary-600 after:scale-x-0 hover:after:scale-x-100 after:duration-200 hover:text-primary-600 inline-flex items-center"
-              to={"/"}
-            >
+            <NavLink className="navbar_link" to={"/"}>
               Home
-            </Link>
+            </NavLink>
           </li>
           <li className="h-full flex items-stretch">
-            <Link
-              className="px-4 py-2 relative after:w-full after:h-[2px] after:absolute after:left-0 after:bottom-0 after:bg-primary-600 after:scale-x-0 hover:after:scale-x-100 after:duration-200 hover:text-primary-600 inline-flex items-center"
-              to={"/movies"}
-            >
+            <NavLink className="navbar_link" to={"/movie"}>
               Movies
-            </Link>
+            </NavLink>
           </li>
           <li className="h-full flex items-stretch">
-            <Link
-              className="px-4 py-2 relative after:w-full after:h-[2px] after:absolute after:left-0 after:bottom-0 after:bg-primary-600 after:scale-x-0 hover:after:scale-x-100 after:duration-200 hover:text-primary-600 inline-flex items-center"
-              to={"/tv"}
-            >
+            <NavLink className="navbar_link" to={"/tv"}>
               Tv Shows
-            </Link>
+            </NavLink>
           </li>
         </ul>
 

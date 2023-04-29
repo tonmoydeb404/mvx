@@ -1,17 +1,15 @@
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import "../styles/style.css";
-import Router from "./Router";
+import { router } from "./router";
 import { store } from "./store";
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Provider store={store}>
-        <Router />
-      </Provider>
-    </BrowserRouter>
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   );
 };
 
