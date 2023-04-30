@@ -1,9 +1,26 @@
+import { useEffect, useState } from "react";
 import { HiMenu, HiSearch } from "react-icons/hi";
 import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
+  const [changeBg, setChangeBg] = useState<boolean>(false);
+
+  const changeNavClass = () => {
+    window.scrollY >= 100 ? setChangeBg(true) : setChangeBg(false);
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", changeNavClass);
+    return () => {
+      window.removeEventListener("scroll", changeNavClass);
+    };
+  }, []);
+
   return (
-    <nav className="border-b border-b-secondary-50/10 fixed top-0 left-0 w-full z-[100]">
+    <nav
+      className={`border-b border-b-secondary-50/10  top-0 left-0 w-full z-[100] duration-200 ${
+        changeBg ? "bg-secondary-900 fixed" : "bg-transparent absolute"
+      }`}
+    >
       <div className="container flex items-stretch h-[50px] gap-10">
         <Link to={"/"} className="font-bold text-2xl self-center">
           <span className="text-primary-600">M</span>VX
