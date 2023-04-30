@@ -10,6 +10,8 @@ import { MediaType } from "../types/media.type";
 import { SortBy } from "../types/tmdb.type";
 import NotFound from "./error/NotFound";
 
+const DEFAULT_SORT: SortBy = "popularity.desc";
+
 const Discover = () => {
   const { type } = useParams<{ type: MediaType }>();
   if (!type || !["movie", "tv"].includes(type)) return <NotFound />;
@@ -18,7 +20,12 @@ const Discover = () => {
   const [discover, discoverResult] = useLazyDiscoverQuery();
   const [page, setPage] = useState(1);
 
-  const [sortBy, setSortBy] = useState<SortBy>("popularity.desc");
+  const [sortBy, setSortBy] = useState<SortBy>(DEFAULT_SORT);
+
+  // sort by on type change
+  useEffect(() => {
+    setSortBy(DEFAULT_SORT);
+  }, [type]);
 
   // handle data
   const handleData = useCallback(
@@ -55,14 +62,6 @@ const Discover = () => {
 
         <div className="flex flex-col w-full sm:flex-row sm:w-auto items-stretch gap-2">
           {/* TODO: Add Genre Filtering here */}
-          {/* <select
-            name="genres"
-            id="genres"
-            className="form-select bg-secondary-800 border-secondary-700 py-1.5"
-          >
-            <option value="popular_as">Popularity Ascending</option>
-            <option value="popular_des">Popularity Descending</option>
-          </select> */}
           <SortSelect
             value={sortBy}
             setValue={setSortBy}
