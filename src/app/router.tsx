@@ -3,6 +3,7 @@ import AppLayout from "../common/layouts/AppLayout";
 import Details from "../pages/Details";
 import Discover from "../pages/Discover";
 import Home from "../pages/Home";
+import Search from "../pages/Search";
 import ErrorBoundary from "../pages/error/ErrorBoundary";
 import NotFound from "../pages/error/NotFound";
 
@@ -11,6 +12,10 @@ export const router = createBrowserRouter([
     element: <AppLayout />,
     ErrorBoundary,
     children: [
+      {
+        path: "/search",
+        element: <Search />,
+      },
       {
         path: "/:type",
         element: <Discover />,

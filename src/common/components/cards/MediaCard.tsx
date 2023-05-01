@@ -14,7 +14,7 @@ const MediaCard = ({ date, path, rating, thumbnail, title }: MovieCardType) => {
   // transform image
   const image = thumbnail
     ? `https://image.tmdb.org/t/p/w500${thumbnail}`
-    : "/images/no-poster.png";
+    : "/images/no-poster.jpg";
   // format date
   const mediaDate = date
     ? new Date(date).toLocaleString("en-us", {
@@ -23,32 +23,36 @@ const MediaCard = ({ date, path, rating, thumbnail, title }: MovieCardType) => {
         day: "2-digit",
       })
     : "Unknown";
+
   return (
     <article className="flex flex-col h-full">
-      <div className="relative">
+      <div className="relative rounded-lg overflow-hidden">
         <Link to={path} title={title}>
           <LazyLoadImage
             src={image}
             alt={title}
-            className="w-full h-[200px] min-[400px]:h-[250px] rounded-lg"
+            placeholderSrc={"/images/poster-loading.jpg"}
+            className="w-full h-[200px] min-[400px]:h-[250px]"
             loading="lazy"
-            effect="blur"
             width={"100%"}
+            visibleByDefault={image === "/images/no-poster.jpg"}
           />
         </Link>
 
-        <div className="absolute bottom-2 left-1 inline-flex items-center justify-center pointer-events-none">
-          <CircularProgress
-            progress={(rating / 10) * 100}
-            stroke={3}
-            radius={25}
-            backgroundClassName="stroke-transparent fill-transparent"
-            foregroundClassName="stroke-primary-600 fill-black/70"
-          />
-          <span className="text-base absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-medium">
-            {rating.toFixed(1)}
-          </span>
-        </div>
+        {typeof rating === "number" ? (
+          <div className="absolute bottom-2 left-1 inline-flex items-center justify-center pointer-events-none">
+            <CircularProgress
+              progress={(rating / 10) * 100}
+              stroke={3}
+              radius={25}
+              backgroundClassName="stroke-transparent fill-transparent"
+              foregroundClassName="stroke-primary-600 fill-black/70"
+            />
+            <span className="text-base absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-medium">
+              {rating.toFixed(1)}
+            </span>
+          </div>
+        ) : null}
       </div>
       <div className="mt-2">
         <Link

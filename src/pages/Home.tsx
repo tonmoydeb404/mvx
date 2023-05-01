@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Form } from "react-router-dom";
 import "swiper/swiper-bundle.css";
 import { useLazyGetPopularQuery } from "../api/popularApi";
 import { useLazyGetTrendingQuery } from "../api/trendingApi";
@@ -37,16 +38,24 @@ const Home = () => {
               explore your favourite movies & tv shows from here
             </p>
 
-            <div className="flex items-stretch gap-2 max-w-[600px] lg:w-[600px] bg-white/30 px-3 py-2 rounded hover:bg-white/40 duration-200 group">
+            <Form
+              action="/search"
+              method="GET"
+              className="flex items-stretch gap-2 max-w-[600px] lg:w-[600px] bg-white/40 px-3 py-2 rounded hover:bg-white/50 duration-200 group"
+            >
               <input
                 type="text"
-                className="py-0 px-2 focus:outline-none border-0 flex-1 text-white bg-transparent placeholder:text-secondary-400 w-full group-hover:placeholder:text-secondary-300"
+                name="query"
+                className="py-0 px-2 focus:outline-none border-0 flex-1 text-white bg-transparent placeholder:text-secondary-300 w-full group-hover:placeholder:text-secondary-200"
                 placeholder="Search for movie or tv show"
               />
-              <button className="px-4 py-2 bg-primary-600 font-medium text-sm uppercase rounded">
+              <button
+                type="submit"
+                className="px-4 py-2 bg-primary-600 font-medium text-sm uppercase rounded"
+              >
                 Explore
               </button>
-            </div>
+            </Form>
           </div>
         </div>
       </header>
