@@ -4,6 +4,7 @@ import { Keyboard, Mousewheel, Navigation } from "swiper";
 import { Swiper, SwiperRef, SwiperSlide } from "swiper/react";
 import { Media } from "../../types/media.type";
 import MediaCard, { MediaCardSkeleton } from "./cards/MediaCard";
+import ErrorState from "./utils/ErrorState";
 
 type CarouselFilter<T = string> = {
   title: string;
@@ -18,6 +19,7 @@ type MediaCarouselType<T = string> = {
   setFilterValue: (filter: T) => any;
   isLoading: boolean;
   isSuccess: boolean;
+  isError: boolean;
 };
 
 const MediaCarousel = <T extends string>({
@@ -28,6 +30,7 @@ const MediaCarousel = <T extends string>({
   data = [],
   isLoading = true,
   isSuccess = false,
+  isError = false,
 }: MediaCarouselType<T>) => {
   const carouselRef = useRef<SwiperRef>(null);
 
@@ -154,6 +157,13 @@ const MediaCarousel = <T extends string>({
           </button>
         </div>
       </Swiper>
+      {isError ? <ErrorState className="min-h-[200px]" /> : null}
+      {!isLoading && !isSuccess && !isError ? (
+        <ErrorState
+          className="min-h-[200px]"
+          text="Sorry we couldn't find anything"
+        />
+      ) : null}
     </div>
   );
 };

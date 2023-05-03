@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { Form } from "react-router-dom";
 import "swiper/swiper-bundle.css";
 import { useLazyGetPopularQuery } from "../api/popularApi";
 import { useLazyGetTrendingQuery } from "../api/trendingApi";
+import HeroSearch from "../common/components/HeroSearch";
 import MediaCarousel from "../common/components/MediaCarousel";
 import { MediaType } from "../types/media.type";
 import { TimeType } from "../types/tmdb.type";
@@ -38,24 +38,7 @@ const Home = () => {
               explore your favourite movies & tv shows from here
             </p>
 
-            <Form
-              action="/search"
-              method="GET"
-              className="flex items-stretch gap-2 max-w-[600px] lg:w-[600px] bg-white/40 px-3 py-2 rounded hover:bg-white/50 duration-200 group"
-            >
-              <input
-                type="text"
-                name="query"
-                className="py-0 px-2 focus:outline-none border-0 flex-1 text-white bg-transparent placeholder:text-secondary-300 w-full group-hover:placeholder:text-secondary-200"
-                placeholder="Search for movie or tv show"
-              />
-              <button
-                type="submit"
-                className="px-4 py-2 bg-primary-600 font-medium text-sm uppercase rounded"
-              >
-                Explore
-              </button>
-            </Form>
+            <HeroSearch />
           </div>
         </div>
       </header>
@@ -72,6 +55,7 @@ const Home = () => {
           setFilterValue={(filter) => setTrendingTime(filter)}
           isLoading={trendingResult.isLoading || trendingResult.isFetching}
           isSuccess={trendingResult.isSuccess}
+          isError={trendingResult.isError}
         />
 
         <MediaCarousel<MediaType>
@@ -85,6 +69,7 @@ const Home = () => {
           setFilterValue={(filter) => setPopularType(filter)}
           isLoading={popularResult.isLoading || popularResult.isFetching}
           isSuccess={popularResult.isSuccess}
+          isError={popularResult.isError}
         />
       </div>
     </main>

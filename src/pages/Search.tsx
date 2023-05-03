@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
-import { BiError } from "react-icons/bi";
 import { CgSpinner } from "react-icons/cg";
-import { HiCheckCircle, HiEmojiSad, HiXCircle } from "react-icons/hi";
+import { HiCheckCircle, HiXCircle } from "react-icons/hi";
 import { Navigate, useSearchParams } from "react-router-dom";
 import { discoverApi } from "../api/discoverApi";
 import { SearchType, useLazySearchQuery } from "../api/searchApi";
 import { useAppDispatch } from "../app/hooks";
 import MediaCard from "../common/components/cards/MediaCard";
+import ErrorState from "../common/components/utils/ErrorState";
 import Loading from "../common/components/utils/Loading";
 
 const searchOptions: { title: string; type: SearchType }[] = [
@@ -164,10 +164,10 @@ const Search = () => {
               ))}
             </div>
           ) : (
-            <div className="min-h-[300px] flex flex-col items-center justify-center opacity-60 sm:text-lg text-center">
-              <HiEmojiSad className="text-4xl" />
-              <p>Sorry, we couldn’t find any results for this search.</p>
-            </div>
+            <ErrorState
+              className="min-h-[300px]"
+              text="Sorry, we couldn’t find any results for this search."
+            />
           )}
 
           {hasMore ? (
@@ -193,12 +193,7 @@ const Search = () => {
         </>
       ) : null}
 
-      {searchResult.isError ? (
-        <div className="min-h-[300px] flex flex-col items-center justify-center opacity-60 sm:text-lg text-center">
-          <BiError className="text-4xl" />
-          <p>Something wents to wrong. please try again later.</p>
-        </div>
-      ) : null}
+      {searchResult.isError ? <ErrorState className="min-h-[300px]" /> : null}
     </div>
   );
 };
