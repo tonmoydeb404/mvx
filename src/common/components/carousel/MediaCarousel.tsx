@@ -3,9 +3,9 @@ import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 // @ts-ignore
 import { Keyboard, Mousewheel, Navigation } from "swiper";
 import { Swiper, SwiperRef, SwiperSlide } from "swiper/react";
-import { Media } from "../../types/media.type";
-import MediaCard, { MediaCardSkeleton } from "./cards/MediaCard";
-import ErrorState from "./utils/ErrorState";
+import { Media } from "../../../types/media.type";
+import MediaCard, { MediaCardSkeleton } from "../cards/MediaCard";
+import ErrorState from "../utils/ErrorState";
 
 type CarouselFilter<T = string> = {
   title: string;

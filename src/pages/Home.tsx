@@ -3,7 +3,7 @@ import "swiper/swiper-bundle.css";
 import { useLazyGetPopularQuery } from "../api/popularApi";
 import { useLazyGetTrendingQuery } from "../api/trendingApi";
 import HeroSearch from "../common/components/HeroSearch";
-import MediaCarousel from "../common/components/MediaCarousel";
+import MediaCarousel from "../common/components/carousel/MediaCarousel";
 import { MediaType } from "../types/media.type";
 import { TimeType } from "../types/tmdb.type";
 

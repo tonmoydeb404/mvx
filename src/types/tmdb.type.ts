@@ -7,6 +7,12 @@ export type TMDBResponse<T = { [key: string]: any }> = {
   total_results: number;
 };
 
+export type MediaCreditResponse = {
+  id: number;
+  cast: { [key: string]: any }[];
+  crew: { [key: string]: any }[];
+};
+
 export type SortBy =
   | "popularity.asc"
   | "popularity.desc"
