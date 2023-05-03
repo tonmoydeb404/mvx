@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+// @ts-ignore
 import { Keyboard, Mousewheel, Navigation } from "swiper";
 import { Swiper, SwiperRef, SwiperSlide } from "swiper/react";
 import { Media } from "../../types/media.type";
@@ -102,31 +103,13 @@ const MediaCarousel = <T extends string>({
         mousewheel
         className="mt-10 relative group"
       >
-        {isLoading ? (
-          <>
-            <SwiperSlide>
-              <MediaCardSkeleton />
-            </SwiperSlide>
-            <SwiperSlide>
-              <MediaCardSkeleton />
-            </SwiperSlide>
-            <SwiperSlide>
-              <MediaCardSkeleton />
-            </SwiperSlide>
-            <SwiperSlide>
-              <MediaCardSkeleton />
-            </SwiperSlide>
-            <SwiperSlide>
-              <MediaCardSkeleton />
-            </SwiperSlide>
-            <SwiperSlide>
-              <MediaCardSkeleton />
-            </SwiperSlide>
-            <SwiperSlide>
-              <MediaCardSkeleton />
-            </SwiperSlide>
-          </>
-        ) : null}
+        {isLoading
+          ? [...Array(7).keys()].map((item) => (
+              <SwiperSlide key={item}>
+                <MediaCardSkeleton />
+              </SwiperSlide>
+            ))
+          : null}
 
         {!isLoading && isSuccess
           ? data.map((item) => (
@@ -157,7 +140,9 @@ const MediaCarousel = <T extends string>({
           </button>
         </div>
       </Swiper>
+      {/* error state */}
       {isError ? <ErrorState className="min-h-[200px]" /> : null}
+      {/* empty state */}
       {!isLoading && !isSuccess && !isError ? (
         <ErrorState
           className="min-h-[200px]"

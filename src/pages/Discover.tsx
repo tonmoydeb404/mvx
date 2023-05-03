@@ -19,7 +19,6 @@ const Discover = () => {
   const dispatch = useAppDispatch();
   const [discover, discoverResult] = useLazyDiscoverQuery();
   const [page, setPage] = useState(1);
-
   const [sortBy, setSortBy] = useState<SortBy>(DEFAULT_SORT);
 
   // sort by on type change
