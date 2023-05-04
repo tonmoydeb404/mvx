@@ -1,5 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import { tmdbQuery } from "../app/settings";
+import average from "../common/utils/average";
 import {
   Media,
   MediaCredit,
@@ -10,37 +11,37 @@ import {
 } from "../types/media.type";
 import { MediaCreditResponse, TMDBResponse } from "../types/tmdb.type";
 
-export const movieApi = createApi({
-  reducerPath: "movieApi",
+export const tvApi = createApi({
+  reducerPath: "tvApi",
   baseQuery: tmdbQuery(),
   endpoints: (builder) => ({
-    movieDetails: builder.query<MediaDetails, string | number>({
-      query: (movieId) => ({
-        url: `/movie/${movieId}`,
+    tvDetails: builder.query<MediaDetails, string | number>({
+      query: (tvId) => ({
+        url: `/tv/${tvId}`,
       }),
       transformResponse(response: { [key: string]: any }) {
-        const movie: MediaDetails = {
-          title: response.title || response.original_title,
+        const tv: MediaDetails = {
+          title: response.name,
           backdrop: response.backdrop_path,
-          budget: response.budget,
-          date: response.release_date,
+          date: response.first_air_date,
           genres: response.genres,
           id: response.id,
           overview: response.overview,
           rating: response.vote_average,
-          revenue: response.revenue,
-          runtime: response.runtime,
+          runtime: average(response.episode_run_time),
           tagline: response.tagline,
           thumbnail: response.poster_path,
-          type: "movie",
-          video: response.video,
+          type: "tv",
+          creators: response.created_by,
+          episodes: response.number_of_episodes,
+          seasons: response.number_of_seasons,
         };
-        return movie;
+        return tv;
       },
     }),
-    movieCredits: builder.query<MediaCredits, string | number>({
-      query: (movieId) => ({
-        url: `/movie/${movieId}/credits`,
+    tvCredits: builder.query<MediaCredits, string | number>({
+      query: (tvId) => ({
+        url: `/tv/${tvId}/credits`,
       }),
       transformResponse(response: MediaCreditResponse) {
         const writer: MediaCredit[] = response.crew
@@ -71,44 +72,44 @@ export const movieApi = createApi({
         return { writer, cast, director };
       },
     }),
-    movieVideos: builder.query<MediaVideos, string | number>({
-      query: (movieId) => ({
-        url: `/movie/${movieId}/videos`,
+    tvVideos: builder.query<MediaVideos, string | number>({
+      query: (tvId) => ({
+        url: `/tv/${tvId}/videos`,
       }),
     }),
-    movieImages: builder.query<MediaImages, string | number>({
-      query: (movieId) => ({
-        url: `/movie/${movieId}/images`,
+    tvImages: builder.query<MediaImages, string | number>({
+      query: (tvId) => ({
+        url: `/tv/${tvId}/images`,
       }),
     }),
-    movieSimilar: builder.query<TMDBResponse<Media>, string | number>({
-      query: (movieId) => ({
-        url: `/movie/${movieId}/similar`,
+    tvSimilar: builder.query<TMDBResponse<Media>, string | number>({
+      query: (tvId) => ({
+        url: `/tv/${tvId}/similar`,
       }),
       transformResponse: (response: TMDBResponse) => {
         const results: Media[] = response.results.map((item) => ({
-          type: "movie",
-          title: item.title,
+          type: "tv",
+          title: item.name,
           thumbnail: item.poster_path,
           id: item.id,
           rating: item.vote_average,
-          date: item.release_date,
+          date: item.first_air_date,
         }));
         return { ...response, results };
       },
     }),
-    movieRecomendations: builder.query<TMDBResponse<Media>, string | number>({
-      query: (movieId) => ({
-        url: `/movie/${movieId}/recommendations`,
+    tvRecomendations: builder.query<TMDBResponse<Media>, string | number>({
+      query: (tvId) => ({
+        url: `/tv/${tvId}/recommendations`,
       }),
       transformResponse: (response: TMDBResponse) => {
         const results: Media[] = response.results.map((item) => ({
-          type: "movie",
-          title: item.title,
+          type: "tv",
+          title: item.name,
           thumbnail: item.poster_path,
           id: item.id,
           rating: item.vote_average,
-          date: item.release_date,
+          date: item.first_air_date,
         }));
         return { ...response, results };
       },
@@ -117,12 +118,12 @@ export const movieApi = createApi({
 });
 
 export const {
-  useMovieCreditsQuery,
-  useMovieDetailsQuery,
-  useMovieImagesQuery,
-  useMovieRecomendationsQuery,
-  useMovieSimilarQuery,
-  useMovieVideosQuery,
-  useLazyMovieImagesQuery,
-  useLazyMovieVideosQuery,
-} = movieApi;
+  useTvCreditsQuery,
+  useTvDetailsQuery,
+  useTvImagesQuery,
+  useTvRecomendationsQuery,
+  useTvSimilarQuery,
+  useTvVideosQuery,
+  useLazyTvImagesQuery,
+  useLazyTvVideosQuery,
+} = tvApi;

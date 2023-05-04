@@ -4,6 +4,7 @@ import Discover from "../pages/Discover";
 import Home from "../pages/Home";
 import MovieDetails from "../pages/MovieDetails";
 import Search from "../pages/Search";
+import TvDetails from "../pages/TvDetails";
 import ErrorBoundary from "../pages/error/ErrorBoundary";
 import NotFound from "../pages/error/NotFound";
 
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
       {
         path: "/movie/:id",
         element: <MovieDetails />,
+      },
+      {
+        path: "/tv/:id",
+        element: <TvDetails />,
       },
       {
         path: "/",

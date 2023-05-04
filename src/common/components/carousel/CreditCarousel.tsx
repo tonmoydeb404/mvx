@@ -2,18 +2,17 @@ import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 // @ts-ignore
 import { Keyboard, Mousewheel, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Media } from "../../../types/media.type";
-import MediaCard, { MediaCardSkeleton } from "../cards/MediaCard";
+import { MediaCredit } from "../../../types/media.type";
+import CreditCard, { CreditCardSkeleton } from "../cards/CreditCard";
 import ErrorState from "../utils/ErrorState";
 
-type MediaCarouselProps = {
+type CreditCarouselProps = {
   title: string;
   className?: string;
-  data: Media[];
+  creditList: MediaCredit[];
   isSuccess: boolean;
   isLoading: boolean;
   isError: boolean;
-  id: string;
 };
 
 const breakpoints = {
@@ -47,15 +46,14 @@ const breakpoints = {
   },
 };
 
-const MediaCarousel = ({
+const CreditCarousel = ({
   title,
   className = "",
-  data,
+  creditList,
   isSuccess,
   isError,
   isLoading,
-  id,
-}: MediaCarouselProps) => {
+}: CreditCarouselProps) => {
   return (
     <div className={className}>
       <div className="flex items-center justify-between mb-10">
@@ -63,13 +61,13 @@ const MediaCarousel = ({
         {isSuccess ? (
           <div className="inline-flex gap-1">
             <button
-              id={`${id}-prev`}
+              id="prev"
               className="p-1.5 disabled:opacity-30 duration-300 text-white bg-secondary-800 hover:bg-secondary-700 rounded-sm cursor-pointer"
             >
               <HiChevronLeft className="text-2xl" />
             </button>
             <button
-              id={`${id}-next`}
+              id="next"
               className="p-1.5 disabled:opacity-30 duration-300 text-white bg-secondary-800 hover:bg-secondary-700 rounded-sm cursor-pointer"
             >
               <HiChevronRight className="text-2xl" />
@@ -83,37 +81,31 @@ const MediaCarousel = ({
           <Swiper breakpoints={breakpoints}>
             {[...Array(7).keys()].map((item) => (
               <SwiperSlide key={item}>
-                <MediaCardSkeleton />
+                <CreditCardSkeleton />
               </SwiperSlide>
             ))}
           </Swiper>
         ) : null}
 
         {/* success state */}
-        {!isLoading && isSuccess && data.length ? (
+        {!isLoading && isSuccess && creditList.length ? (
           <Swiper
             modules={[Navigation, Keyboard, Mousewheel]}
             breakpoints={breakpoints}
-            navigation={{ nextEl: `#${id}-next`, prevEl: `#${id}-prev` }}
+            navigation={{ nextEl: "#next", prevEl: "#prev" }}
             keyboard
             mousewheel
           >
-            {data.map((item) => (
-              <SwiperSlide key={item.id}>
-                <MediaCard
-                  date={item.date}
-                  path={`/${item.type}/${item.id}`}
-                  rating={item.rating}
-                  thumbnail={item.thumbnail}
-                  title={item.title}
-                />
+            {creditList.map((cast) => (
+              <SwiperSlide key={cast.id}>
+                <CreditCard {...cast} />
               </SwiperSlide>
             ))}
           </Swiper>
         ) : null}
 
         {/* Empty state */}
-        {!isLoading && isSuccess && !data.length ? (
+        {!isLoading && isSuccess && !creditList.length ? (
           <ErrorState
             className="min-h-[200px]"
             text="Sorry we couldn't find anything"
@@ -125,4 +117,4 @@ const MediaCarousel = ({
   );
 };
 
-export default MediaCarousel;
+export default CreditCarousel;

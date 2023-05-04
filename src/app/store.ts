@@ -4,6 +4,7 @@ import { movieApi } from "../api/movieApi";
 import { popularApi } from "../api/popularApi";
 import { searchApi } from "../api/searchApi";
 import { trendingApi } from "../api/trendingApi";
+import { tvApi } from "../api/tvApi";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     [discoverApi.reducerPath]: discoverApi.reducer,
     [searchApi.reducerPath]: searchApi.reducer,
     [movieApi.reducerPath]: movieApi.reducer,
+    [tvApi.reducerPath]: tvApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -19,7 +21,8 @@ export const store = configureStore({
       popularApi.middleware,
       discoverApi.middleware,
       searchApi.middleware,
-      movieApi.middleware
+      movieApi.middleware,
+      tvApi.middleware
     ),
   devTools: import.meta.env.MODE === "development",
 });

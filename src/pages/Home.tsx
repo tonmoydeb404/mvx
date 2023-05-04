@@ -3,7 +3,7 @@ import "swiper/swiper-bundle.css";
 import { useLazyGetPopularQuery } from "../api/popularApi";
 import { useLazyGetTrendingQuery } from "../api/trendingApi";
 import HeroSearch from "../common/components/HeroSearch";
-import MediaCarousel from "../common/components/carousel/MediaCarousel";
+import MediaFilterCarousel from "../common/components/carousel/MediaFilterCarousel";
 import { MediaType } from "../types/media.type";
 import { TimeType } from "../types/tmdb.type";
 
@@ -44,7 +44,7 @@ const Home = () => {
       </header>
 
       <div className="container py-20 flex flex-col gap-y-10 sm:gap-y-20">
-        <MediaCarousel<TimeType>
+        <MediaFilterCarousel<TimeType>
           title="Trending"
           filters={[
             { title: "Today", id: "day" },
@@ -58,7 +58,7 @@ const Home = () => {
           isError={trendingResult.isError}
         />
 
-        <MediaCarousel<MediaType>
+        <MediaFilterCarousel<MediaType>
           title="Popular"
           filters={[
             { title: "Movies", id: "movie" },
