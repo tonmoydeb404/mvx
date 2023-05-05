@@ -1,7 +1,8 @@
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { Link } from "react-router-dom";
 import { MediaCredit } from "../../../types/media.type";
 
-const CreditCard = ({ avatar, name, credit }: MediaCredit) => {
+const CreditCard = ({ avatar, name, credit, id }: MediaCredit) => {
   const defImage = "/images/poster-loading.jpg";
   const image = avatar
     ? `https://image.tmdb.org/t/p/original${avatar}`
@@ -9,22 +10,29 @@ const CreditCard = ({ avatar, name, credit }: MediaCredit) => {
 
   return (
     <div className="flex flex-col items-center text-center">
-      <div className="aspect-square relative rounded-full overflow-hidden mb-5 w-full">
-        <LazyLoadImage
-          src={image}
-          alt={name}
-          placeholderSrc={defImage}
-          className="object-cover object-center w-full h-full"
-          loading="lazy"
-          width="100%"
-          height="100%"
-          visibleByDefault={image === defImage}
-        />
-      </div>
+      <Link to={`/person/${id}`} className="block w-full">
+        <div className="aspect-square relative rounded-full overflow-hidden mb-5 w-full">
+          <LazyLoadImage
+            src={image}
+            alt={name}
+            placeholderSrc={defImage}
+            className="object-cover object-center w-full h-full"
+            loading="lazy"
+            width="100%"
+            height="100%"
+            visibleByDefault={image === defImage}
+          />
+        </div>
+      </Link>
 
-      <h3 className="text-xl font-medium line-clamp-1" title={name}>
-        {name}
-      </h3>
+      <Link to={`/person/${id}`} className="block">
+        <h3
+          className="text-xl font-medium line-clamp-1 hover:text-primary-600"
+          title={name}
+        >
+          {name}
+        </h3>
+      </Link>
       <h4 className="text-base text-secondary-400 line-clamp-1" title={credit}>
         {credit}
       </h4>

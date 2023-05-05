@@ -3,6 +3,7 @@ import AppLayout from "../common/layouts/AppLayout";
 import Discover from "../pages/Discover";
 import Home from "../pages/Home";
 import MovieDetails from "../pages/MovieDetails";
+import Person from "../pages/Person";
 import Search from "../pages/Search";
 import TvDetails from "../pages/TvDetails";
 import ErrorBoundary from "../pages/error/ErrorBoundary";
@@ -28,6 +29,10 @@ export const router = createBrowserRouter([
       {
         path: "/tv/:id",
         element: <TvDetails />,
+      },
+      {
+        path: "/person/:id",
+        element: <Person />,
       },
       {
         path: "/",

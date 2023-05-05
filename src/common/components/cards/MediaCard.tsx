@@ -1,16 +1,9 @@
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
+import { Media } from "../../../types/media.type";
 import CircularProgress from "../utils/CircularProgress";
 
-type MovieCardType = {
-  thumbnail: string | null;
-  title: string;
-  date: string;
-  path: string;
-  rating: number;
-};
-
-const MediaCard = ({ date, path, rating, thumbnail, title }: MovieCardType) => {
+const MediaCard = ({ date, rating, thumbnail, title, type, id }: Media) => {
   // transform image
   const image = thumbnail
     ? `https://image.tmdb.org/t/p/w500${thumbnail}`
@@ -23,6 +16,8 @@ const MediaCard = ({ date, path, rating, thumbnail, title }: MovieCardType) => {
         day: "2-digit",
       })
     : "Unknown";
+
+  const path = `/${type}/${id}`;
 
   return (
     <article className="flex flex-col h-full">

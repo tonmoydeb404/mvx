@@ -1,0 +1,8 @@
+@layer utilities {
+  .masonry {
+    @apply columns-1;
+    @apply min-[320px]:columns-2;
+    @apply md:columns-3;
+    @apply xl:columns-4;
+  }
+}

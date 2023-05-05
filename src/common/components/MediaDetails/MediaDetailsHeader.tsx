@@ -9,7 +9,7 @@ type MediaDetailsHeaderProps = {
   id: string;
 };
 
-const MediaDetailsHeaderSkeleton = () => {
+export const MediaDetailsHeaderSkeleton = () => {
   return (
     <header className={`animate-pulse mb-28 pt-28`}>
       <div className="container flex flex-col md:flex-row gap-10">

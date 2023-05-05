@@ -98,8 +98,6 @@ const Search = () => {
     ? searchResult.data?.total_pages > searchResult.data?.page
     : false;
 
-  console.log(searchResult.error);
-
   return (
     <div className="container pt-28 pb-20">
       <div className="flex sm:items-center flex-wrap flex-col sm:flex-row sm:justify-between gap-x-10 gap-y-1 mb-5">
@@ -153,14 +151,7 @@ const Search = () => {
           {searchResult.data.total_results > 0 ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-5 gap-y-10 mb-20">
               {searchResult.data.results.map((item) => (
-                <MediaCard
-                  key={item.id}
-                  date={item.date}
-                  path={`/${item.type}/${item.id}`}
-                  rating={item.rating}
-                  thumbnail={item.thumbnail}
-                  title={item.title}
-                />
+                <MediaCard key={item.id} {...item} />
               ))}
             </div>
           ) : (

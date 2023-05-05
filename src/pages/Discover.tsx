@@ -86,14 +86,7 @@ const Discover = () => {
             className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-5 gap-y-10"
           >
             {discoverResult.data.results.map((item) => (
-              <MediaCard
-                key={item.id}
-                date={item.date}
-                path={`/${item.type}/${item.id}`}
-                rating={item.rating}
-                thumbnail={item.thumbnail}
-                title={item.title}
-              />
+              <MediaCard key={item.id} {...item} />
             ))}
           </InfiniteScroll>
         ) : null}

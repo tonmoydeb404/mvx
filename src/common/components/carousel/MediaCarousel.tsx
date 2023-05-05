@@ -100,13 +100,7 @@ const MediaCarousel = ({
           >
             {data.map((item) => (
               <SwiperSlide key={item.id}>
-                <MediaCard
-                  date={item.date}
-                  path={`/${item.type}/${item.id}`}
-                  rating={item.rating}
-                  thumbnail={item.thumbnail}
-                  title={item.title}
-                />
+                <MediaCard {...item} />
               </SwiperSlide>
             ))}
           </Swiper>
