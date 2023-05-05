@@ -27,6 +27,7 @@ const VideoShowCase = ({ onHide, src }: VideoShowCaseProps) => {
             className="absolute top-0 left-0"
             width="100%"
             height="100%"
+            controls
           />
         </div>
       </div>

@@ -8,12 +8,15 @@ import {
   useLazyMovieVideosQuery,
 } from "../../../api/movieApi";
 import { useLazyTvImagesQuery, useLazyTvVideosQuery } from "../../../api/tvApi";
-import ContentImageCard, {
-  ContentImageCardSkeleton,
-} from "../cards/ContentImageCard";
+import ContentBackdropCard, {
+  ContentBackdropCardSkeleton,
+} from "../cards/ContentCard/ContentBackdropCard";
+import ContentPosterCard, {
+  ContentPosterCardSkeleton,
+} from "../cards/ContentCard/ContentPosterCard";
 import ContentVideoCard, {
   ContentVideoCardSkeleton,
-} from "../cards/ContentVideoCard";
+} from "../cards/ContentCard/ContentVideoCard";
 import ErrorState from "../utils/ErrorState";
 import VideoShowCase from "../utils/VideoShowCase";
 
@@ -150,8 +153,10 @@ const MediaDetailsContent = ({
               <SwiperSlide key={item}>
                 {contentType === "videos" ? (
                   <ContentVideoCardSkeleton />
+                ) : contentType === "backdrops" ? (
+                  <ContentBackdropCardSkeleton />
                 ) : (
-                  <ContentImageCardSkeleton type={contentType} />
+                  <ContentPosterCardSkeleton />
                 )}
               </SwiperSlide>
             ))}
@@ -201,10 +206,7 @@ const MediaDetailsContent = ({
             {contentType === "backdrops" && images.isSuccess
               ? images.data.backdrops.map((image) => (
                   <SwiperSlide key={image.file_path}>
-                    <ContentImageCard
-                      src={`https://image.tmdb.org/t/p/w500${image.file_path}`}
-                      type="backdrops"
-                    />
+                    <ContentBackdropCard {...image} />
                   </SwiperSlide>
                 ))
               : null}
@@ -213,10 +215,7 @@ const MediaDetailsContent = ({
             {contentType === "posters" && images.isSuccess
               ? images.data.posters.map((image) => (
                   <SwiperSlide key={image.file_path}>
-                    <ContentImageCard
-                      src={`https://image.tmdb.org/t/p/w500${image.file_path}`}
-                      type="posters"
-                    />
+                    <ContentPosterCard {...image} />
                   </SwiperSlide>
                 ))
               : null}

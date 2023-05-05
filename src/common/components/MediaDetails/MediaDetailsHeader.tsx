@@ -43,8 +43,12 @@ const MediaDetailsHeader = ({ id, type }: MediaDetailsHeaderProps) => {
     type === "movie" ? useMovieDetailsQuery(id) : useTvDetailsQuery(id);
 
   if (!isFetching && !isLoading && isSuccess) {
-    const background = `https://image.tmdb.org/t/p/original${data.backdrop}`;
-    const poster = `https://image.tmdb.org/t/p/w500${data.thumbnail}`;
+    const background = data.backdrop
+      ? `https://image.tmdb.org/t/p/original${data.backdrop}`
+      : "";
+    const poster = data.thumbnail
+      ? `https://image.tmdb.org/t/p/w500${data.thumbnail}`
+      : "/images/no-poster.jpg";
     const date = data.date
       ? new Date(data.date).toLocaleString("en-us", {
           month: "short",

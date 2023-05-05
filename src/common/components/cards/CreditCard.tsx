@@ -1,16 +1,24 @@
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import { MediaCredit } from "../../../types/media.type";
 
 const CreditCard = ({ avatar, name, credit }: MediaCredit) => {
+  const defImage = "/images/poster-loading.jpg";
   const image = avatar
     ? `https://image.tmdb.org/t/p/original${avatar}`
-    : "/images/poster-loading.jpg";
+    : defImage;
+
   return (
     <div className="flex flex-col items-center text-center">
-      <div className="aspect-square relative rounded-full overflow-hidden mb-5">
-        <img
+      <div className="aspect-square relative rounded-full overflow-hidden mb-5 w-full">
+        <LazyLoadImage
           src={image}
           alt={name}
+          placeholderSrc={defImage}
           className="object-cover object-center w-full h-full"
+          loading="lazy"
+          width="100%"
+          height="100%"
+          visibleByDefault={image === defImage}
         />
       </div>
 

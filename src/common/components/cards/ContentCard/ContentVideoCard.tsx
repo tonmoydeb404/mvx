@@ -1,4 +1,5 @@
 import { HiOutlinePlay } from "react-icons/hi";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 type ContentVideoCardProps = {
   src: string;
@@ -11,12 +12,23 @@ const ContentVideoCard = ({
   title,
   onClick = () => {},
 }: ContentVideoCardProps) => {
+  const defImage = "/images/poster-loading.jpg";
   return (
     <div className="group">
       <div
         className="aspect-video relative rounded-lg overflow-hidden mb-3"
         onClick={onClick}
       >
+        <LazyLoadImage
+          src={src}
+          alt={title}
+          placeholderSrc={defImage}
+          className="object-cover object-center w-full h-full"
+          loading="lazy"
+          width="100%"
+          height="100%"
+          visibleByDefault={src === defImage}
+        />
         <img
           src={src}
           alt={title}
