@@ -18,7 +18,7 @@ const MediaDetailsSimilar = ({ type, id }: MediaDetailsSimilarProps) => {
       isError={similar.isError}
       isLoading={similar.isLoading || similar.isFetching}
       isSuccess={similar.isSuccess}
-      title="MediaDetailsSimilar"
+      title="Similar"
       className="container mb-24"
     />
   );
