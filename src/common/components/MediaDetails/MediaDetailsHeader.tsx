@@ -4,12 +4,12 @@ import usdFormat from "../../utils/usdFormat";
 import CircularProgress from "../utils/CircularProgress";
 import ErrorState from "../utils/ErrorState";
 
-type HeaderProps = {
+type MediaDetailsHeaderProps = {
   type: "movie" | "tv";
   id: string;
 };
 
-const HeaderSkeleton = () => {
+const MediaDetailsHeaderSkeleton = () => {
   return (
     <header className={`animate-pulse mb-28 pt-28`}>
       <div className="container flex flex-col md:flex-row gap-10">
@@ -38,7 +38,7 @@ const HeaderSkeleton = () => {
   );
 };
 
-const Header = ({ id, type }: HeaderProps) => {
+const MediaDetailsHeader = ({ id, type }: MediaDetailsHeaderProps) => {
   const { isLoading, isFetching, isError, isSuccess, data } =
     type === "movie" ? useMovieDetailsQuery(id) : useTvDetailsQuery(id);
 
@@ -162,7 +162,7 @@ const Header = ({ id, type }: HeaderProps) => {
     return <ErrorState className="w-full min-h-screen" />;
   }
 
-  return <HeaderSkeleton />;
+  return <MediaDetailsHeaderSkeleton />;
 };
 
-export default Header;
+export default MediaDetailsHeader;

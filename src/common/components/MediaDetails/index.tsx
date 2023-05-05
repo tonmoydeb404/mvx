@@ -1,9 +1,8 @@
-import Header from "./Header";
-
-import CastCredit from "./CastCredit";
-import Media from "./Media";
-import Recomendations from "./Recomendations";
-import Similar from "./Similar";
+import MediaDetailsCast from "./MediaDetailsCast";
+import MediaDetailsContent from "./MediaDetailsContent";
+import MediaDetailsHeader from "./MediaDetailsHeader";
+import MediaDetailsRecomendations from "./MediaDetailsRecomendations";
+import MediaDetailsSimilar from "./MediaDetailsSimilar";
 
 type MediaDetailsProps = {
   type: "movie" | "tv";
@@ -13,11 +12,11 @@ type MediaDetailsProps = {
 const MediaDetails = ({ type, id }: MediaDetailsProps) => {
   return (
     <>
-      <Header type={type} id={id} />
-      <CastCredit type={type} id={id} />
-      <Media type={type} id={id} className="container mb-24" />
-      <Similar type={type} id={id} />
-      <Recomendations type={type} id={id} />
+      <MediaDetailsHeader type={type} id={id} />
+      <MediaDetailsCast type={type} id={id} />
+      <MediaDetailsContent type={type} id={id} className="container mb-24" />
+      <MediaDetailsSimilar type={type} id={id} />
+      <MediaDetailsRecomendations type={type} id={id} />
     </>
   );
 };
