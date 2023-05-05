@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { HiMenu, HiSearch } from "react-icons/hi";
 import { Link, NavLink } from "react-router-dom";
+import NavbarSearch from "./NavbarSearch";
 
 const Navbar = () => {
-  const [changeBg, setChangeBg] = useState<boolean>(false);
+  const [changeBg, setChangeBg] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
 
   const changeNavClass = () => {
     window.scrollY >= 100 ? setChangeBg(true) : setChangeBg(false);
@@ -46,7 +48,12 @@ const Navbar = () => {
 
         {/* actions */}
         <div className="flex items-center gap-2 ml-auto">
-          <button className="px-2 py-2 hover:bg-white/30 rounded-sm">
+          <button
+            className={`px-2 py-2 rounded-sm ${
+              showSearch ? "bg-white/30 " : "hover:bg-white/30"
+            }`}
+            onClick={() => setShowSearch((prev) => !prev)}
+          >
             <HiSearch className="text-lg" />
           </button>
           <button className="px-2 py-2 bg-secondary-800 hover:bg-secondary-700 rounded-sm md:hidden">
@@ -54,6 +61,7 @@ const Navbar = () => {
           </button>
         </div>
       </div>
+      <NavbarSearch show={showSearch} onSubmit={() => setShowSearch(false)} />
     </nav>
   );
 };
