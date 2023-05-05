@@ -7,3 +7,12 @@
 .navbar_link.active {
   @apply after:scale-x-100;
 }
+
+.navbar_menu_link {
+  @apply py-1.5 px-3 inline-block duration-200 rounded-sm w-full;
+  @apply hover:bg-secondary-700;
+}
+
+.navbar_menu_link.active {
+  @apply bg-primary-600;
+}
