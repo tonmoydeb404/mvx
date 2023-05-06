@@ -10,6 +10,7 @@ export type PersonDetails = {
   profile_path: string | null;
   known_for_department: string;
   deathday: string | null;
+  id: number;
 };
 export type PersonSocial = {
   imdb_id: string | null;

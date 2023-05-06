@@ -1,7 +1,42 @@
 import { PersonDetails } from "../../../types/person.type";
 import genderList from "../../utils/genderList";
-import { MediaDetailsHeaderSkeleton } from "../MediaDetails/MediaDetailsHeader";
+import PersonSocial, { PersonSocialSkeleton } from "../person/PersonSocial";
 import ErrorState from "../utils/ErrorState";
+
+export const PersonDetailsHeaderSkeleton = () => {
+  return (
+    <header className={`animate-pulse mb-28 pt-28`}>
+      <div className="container flex flex-col md:flex-row gap-10">
+        <div className="w-[90%] h-[400px] min-[350px]:w-[300px] rounded-lg bg-secondary-800"></div>
+        <div className="flex-1">
+          <h1 className="h-[30px] w-[90%] sm:w-[80%] bg-secondary-800 rounded mb-2"></h1>
+          <div className="flex items-center gap-2 mb-10">
+            <PersonSocialSkeleton />
+            <PersonSocialSkeleton />
+            <PersonSocialSkeleton />
+            <PersonSocialSkeleton />
+          </div>
+
+          <h3 className="h-[28px] w-[150px] bg-secondary-800 rounded mb-4"></h3>
+          <p className="h-[16px] sm:w-[80%] bg-secondary-800 rounded mb-2"></p>
+          <p className="h-[16px] sm:w-[70%] bg-secondary-800 rounded mb-2"></p>
+          <p className="h-[16px] sm:w-[75%] bg-secondary-800 rounded mb-2"></p>
+          <p className="h-[16px] sm:w-[50%] bg-secondary-800 rounded mb-20"></p>
+
+          <div className="mb-3 pb-2.5 border-b border-b-secondary-800">
+            <div className="h-[18px] sm:w-[350px] rounded bg-secondary-800"></div>
+          </div>
+          <div className="mb-3 pb-2.5 border-b border-b-secondary-800">
+            <div className="h-[18px] sm:w-[380px] rounded bg-secondary-800"></div>
+          </div>
+          <div className="mb-3 pb-2.5 border-b border-b-secondary-800">
+            <div className="h-[18px] sm:w-[400px] rounded bg-secondary-800"></div>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+};
 
 type PersonDetailsHeaderProps = {
   isLoading: boolean;
@@ -28,10 +63,10 @@ const PersonDetailsHeader = ({
             <img src={image} alt={data.name} className="w-full" />
           </div>
           <div className="flex-1">
-            <h1 className="font-medium text-2xl sm:text-3xl mb-10">
+            <h1 className="font-medium text-2xl sm:text-3xl mb-3">
               {data.name}
             </h1>
-
+            <PersonSocial id={data.id} className="mb-10" />
             {data.biography ? (
               <>
                 <h3 className="text-xl mb-2 font-medium">Biography</h3>
@@ -90,7 +125,7 @@ const PersonDetailsHeader = ({
   }
 
   // Loading State
-  return <MediaDetailsHeaderSkeleton />;
+  return <PersonDetailsHeaderSkeleton />;
 };
 
 export default PersonDetailsHeader;
