@@ -1,16 +1,16 @@
+import { Swiper, SwiperSlide } from "swiper/react";
 // @ts-ignore
 import { Keyboard, Navigation } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { mediaBreakpoints } from "../../../config/breakpoints";
+import { assetBreakpoints } from "../../../config/breakpoints";
+import { Asset, AssetType } from "../../../types/asset.type";
 import { ApiResponse } from "../../../types/common.type";
-import { Media } from "../../../types/media.type";
-import MediaCard, { MediaCardSkeleton } from "../cards/MediaCard";
+import AssetCard, { AssetCardSkeleton } from "../cards/AssetCard";
 import ErrorState from "../utils/ErrorState";
 import CarouselHeader, { CarouselHeaderProps, Filter } from "./CarouselHeader";
 
-type MediaCarouselProps<F> = CarouselHeaderProps<F> & ApiResponse<Media[]>;
+type AssetCarouselProps<F> = CarouselHeaderProps<F> & ApiResponse<Asset[]>;
 
-const MediaCarousel = <F extends Filter>({
+const AssetCarousel = <F extends Filter<AssetType>>({
   className,
   id,
   isLoading = true,
@@ -19,7 +19,7 @@ const MediaCarousel = <F extends Filter>({
   isEmpty,
   data,
   ...props
-}: MediaCarouselProps<F>) => {
+}: AssetCarouselProps<F>) => {
   return (
     <div className={className}>
       <CarouselHeader id={id} {...props} />
@@ -37,7 +37,7 @@ const MediaCarousel = <F extends Filter>({
 
       <Swiper
         modules={[Navigation, Keyboard]}
-        breakpoints={mediaBreakpoints}
+        breakpoints={assetBreakpoints}
         navigation={{ nextEl: `#next-${id}`, prevEl: `#prev-${id}` }}
         keyboard
         mousewheel
@@ -46,7 +46,7 @@ const MediaCarousel = <F extends Filter>({
         {isLoading
           ? [...Array(7).keys()].map((item) => (
               <SwiperSlide key={item}>
-                <MediaCardSkeleton />
+                <AssetCardSkeleton type={props.filter?.value} />
               </SwiperSlide>
             ))
           : null}
@@ -54,8 +54,8 @@ const MediaCarousel = <F extends Filter>({
         {/* Success State */}
         {isSuccess && !isLoading && data
           ? data.map((item) => (
-              <SwiperSlide key={item.id}>
-                <MediaCard {...item} />
+              <SwiperSlide key={item.file_path}>
+                <AssetCard {...item} />
               </SwiperSlide>
             ))
           : null}
@@ -64,4 +64,4 @@ const MediaCarousel = <F extends Filter>({
   );
 };
 
-export default MediaCarousel;
+export default AssetCarousel;

@@ -1,16 +1,19 @@
+import { Swiper, SwiperSlide } from "swiper/react";
 // @ts-ignore
 import { Keyboard, Navigation } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
 import { mediaBreakpoints } from "../../../config/breakpoints";
 import { ApiResponse } from "../../../types/common.type";
-import { Media } from "../../../types/media.type";
-import MediaCard, { MediaCardSkeleton } from "../cards/MediaCard";
+import { PersonCredit } from "../../../types/credit.types";
+import PersonCreditCard, {
+  PersonCreditCardSkeleton,
+} from "../cards/PersonCreditCard";
 import ErrorState from "../utils/ErrorState";
 import CarouselHeader, { CarouselHeaderProps, Filter } from "./CarouselHeader";
 
-type MediaCarouselProps<F> = CarouselHeaderProps<F> & ApiResponse<Media[]>;
+type PersonCreditCarouselProps<F> = CarouselHeaderProps<F> &
+  ApiResponse<PersonCredit[]>;
 
-const MediaCarousel = <F extends Filter>({
+const PersonCreditCarousel = <F extends Filter>({
   className,
   id,
   isLoading = true,
@@ -19,7 +22,7 @@ const MediaCarousel = <F extends Filter>({
   isEmpty,
   data,
   ...props
-}: MediaCarouselProps<F>) => {
+}: PersonCreditCarouselProps<F>) => {
   return (
     <div className={className}>
       <CarouselHeader id={id} {...props} />
@@ -46,7 +49,7 @@ const MediaCarousel = <F extends Filter>({
         {isLoading
           ? [...Array(7).keys()].map((item) => (
               <SwiperSlide key={item}>
-                <MediaCardSkeleton />
+                <PersonCreditCardSkeleton />
               </SwiperSlide>
             ))
           : null}
@@ -55,7 +58,7 @@ const MediaCarousel = <F extends Filter>({
         {isSuccess && !isLoading && data
           ? data.map((item) => (
               <SwiperSlide key={item.id}>
-                <MediaCard {...item} />
+                <PersonCreditCard {...item} />
               </SwiperSlide>
             ))
           : null}
@@ -64,4 +67,4 @@ const MediaCarousel = <F extends Filter>({
   );
 };
 
-export default MediaCarousel;
+export default PersonCreditCarousel;

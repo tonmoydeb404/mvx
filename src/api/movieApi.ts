@@ -1,85 +1,82 @@
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import { tmdbQuery } from "../app/settings";
+import { Asset } from "../types/asset.type";
+import { PersonCredit } from "../types/credit.types";
+import { Media } from "../types/media.type";
 import {
-  Media,
-  MediaCredit,
-  MediaCredits,
-  MediaDetails,
-  MediaImages,
-  MediaVideos,
-} from "../types/media.type";
-import { MediaCreditResponse, TMDBResponse } from "../types/tmdb.type";
+  MovieCredits,
+  MovieDetails,
+  MovieImages,
+  MovieVideos,
+} from "../types/movie.type";
+import { TMDBResponse } from "../types/tmdb.type";
 
 export const movieApi = createApi({
   reducerPath: "movieApi",
   baseQuery: tmdbQuery(),
   endpoints: (builder) => ({
-    movieDetails: builder.query<MediaDetails, string | number>({
+    movieDetails: builder.query<MovieDetails, string | number>({
       query: (movieId) => ({
         url: `/movie/${movieId}`,
       }),
-      transformResponse(response: { [key: string]: any }) {
-        const movie: MediaDetails = {
-          title: response.title || response.original_title,
-          backdrop: response.backdrop_path,
-          budget: response.budget,
-          date: response.release_date,
-          genres: response.genres,
-          id: response.id,
-          overview: response.overview,
-          rating: response.vote_average,
-          revenue: response.revenue,
-          runtime: response.runtime,
-          tagline: response.tagline,
-          thumbnail: response.poster_path,
-          type: "movie",
-          video: response.video,
-        };
-        return movie;
-      },
     }),
-    movieCredits: builder.query<MediaCredits, string | number>({
+    movieCredits: builder.query<MovieCredits<PersonCredit>, string | number>({
       query: (movieId) => ({
         url: `/movie/${movieId}/credits`,
       }),
-      transformResponse(response: MediaCreditResponse) {
-        const writer: MediaCredit[] = response.crew
-          .filter((crew) => crew.department === "Writing")
-          .map((crew) => ({
-            id: crew.id,
-            avatar: crew.profile_path,
-            credit: crew.job,
-            name: crew.name,
-            credit_id: crew.credit_id,
-          }));
-        const cast: MediaCredit[] = response.cast.map((cast) => ({
+      transformResponse(response: MovieCredits) {
+        const cast: PersonCredit[] = response.cast.map((cast) => ({
           id: cast.id,
-          avatar: cast.profile_path,
+          profile_path: cast.profile_path,
           credit: cast.character,
           name: cast.name,
           credit_id: cast.credit_id,
         }));
-        const director: MediaCredit[] = response.crew
-          .filter((crew) => crew.department === "Directing")
-          .map((crew) => ({
-            id: crew.id,
-            avatar: crew.profile_path,
-            credit: crew.job,
-            name: crew.name,
-            credit_id: crew.credit_id,
-          }));
-        return { writer, cast, director };
+        const crew: PersonCredit[] = response.crew.map((crew) => ({
+          id: crew.id,
+          profile_path: crew.profile_path,
+          credit: crew.job,
+          name: crew.name,
+          credit_id: crew.credit_id,
+        }));
+        return { id: response.id, crew, cast };
       },
     }),
-    movieVideos: builder.query<MediaVideos, string | number>({
+    movieVideos: builder.query<MovieVideos<Asset>, string | number>({
       query: (movieId) => ({
         url: `/movie/${movieId}/videos`,
       }),
+      transformResponse(response: MovieVideos) {
+        const results: Asset[] = response.results
+          .filter((video) => video.site === "YouTube")
+          .map((video) => ({
+            aspect_ratio: null,
+            file_path: video.key,
+            type: "video",
+          }));
+
+        return { id: response.id, results };
+      },
     }),
-    movieImages: builder.query<MediaImages, string | number>({
+    movieImages: builder.query<MovieImages<Asset>, string | number>({
       query: (movieId) => ({
         url: `/movie/${movieId}/images`,
       }),
+      transformResponse(response: MovieImages) {
+        const backdrops: Asset[] = response.backdrops.map((image) => ({
+          aspect_ratio: image.aspect_ratio,
+          file_path: image.file_path,
+          type: "backdrop",
+        }));
+
+        const posters: Asset[] = response.posters.map((image) => ({
+          aspect_ratio: image.aspect_ratio,
+          file_path: image.file_path,
+          type: "poster",
+        }));
+
+        return { id: response.id, backdrops, posters };
+      },
     }),
     movieSimilar: builder.query<TMDBResponse<Media>, string | number>({
       query: (movieId) => ({

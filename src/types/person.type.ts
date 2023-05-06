@@ -1,5 +1,10 @@
 import { MediaImage } from "./media.type";
 
+export type Person = {
+  name: string;
+  profile_path: string | null;
+  id: number;
+};
 export type PersonDetails = {
   name: string;
   also_known_as: string[];
