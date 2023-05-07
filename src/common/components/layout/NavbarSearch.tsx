@@ -25,10 +25,7 @@ const NavbarSearch = ({ show, onSubmit }: NavbarSearchProps) => {
           type="search"
           className="form-input py-1 flex-1 justify-self-stretch w-full bg-transparent focus:ring-0 focus:outline-none focus:border-primary-600 border-1 border-slate-400 rounded-sm"
         />
-        <button
-          type="submit"
-          className="px-4 py-2 inline-flex items-center gap-1 bg-primary-600 hover:bg-primary-700 duration-200 rounded-sm text-white uppercase font-medium text-sm"
-        >
+        <button type="submit" className="btn btn-primary">
           <span className="hidden sm:inline-block">Search</span>
           <HiSearch className="text-lg" />
         </button>

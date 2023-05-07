@@ -1,0 +1,28 @@
+.btn {
+  @apply px-4 py-2 font-medium text-sm uppercase rounded inline-flex items-center gap-1 duration-300;
+  @apply disabled:opacity-30;
+}
+
+.btn.btn-primary {
+  @apply bg-primary-600 text-white;
+  @apply hover:bg-primary-700;
+}
+
+.btn-icon {
+  @apply p-1.5 rounded-sm cursor-pointer duration-300;
+  @apply disabled:opacity-30;
+}
+
+.btn-icon.btn-secondary {
+  @apply text-white bg-secondary-800;
+  @apply hover:bg-secondary-700;
+}
+
+.btn-icon.btn-ghost {
+  @apply text-white bg-transparent;
+  @apply hover:bg-white/30;
+}
+
+.btn-icon.btn-ghost.active {
+  @apply bg-white/30;
+}

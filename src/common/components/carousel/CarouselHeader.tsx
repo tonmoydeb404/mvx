@@ -34,16 +34,10 @@ const CarouselHeader = <F extends Filter>({
       <h2 className="text-2xl font-medium">{title}</h2>
 
       <div className="sm:order-3 inline-flex gap-1 ml-auto">
-        <button
-          id={`prev-${id}`}
-          className="p-1.5 disabled:opacity-30 duration-300 text-white bg-secondary-800 hover:bg-secondary-700 rounded-sm cursor-pointer"
-        >
+        <button id={`prev-${id}`} className="btn-icon btn-secondary">
           <HiChevronLeft className="text-2xl" />
         </button>
-        <button
-          id={`next-${id}`}
-          className="p-1.5 disabled:opacity-30 duration-300 text-white bg-secondary-800 hover:bg-secondary-700 rounded-sm cursor-pointer"
-        >
+        <button id={`next-${id}`} className="btn-icon btn-secondary">
           <HiChevronRight className="text-2xl" />
         </button>
       </div>
@@ -54,10 +48,8 @@ const CarouselHeader = <F extends Filter>({
             <button
               key={item.value}
               onClick={() => setFilter(item)}
-              className={`py-1 px-3 sm:py-1.5 sm:px-4 min-w-[70px] text-sm rounded-2xl ring-[1.5px] ring-primary-700 cursor-pointer ${
-                item.value === filter.value
-                  ? "bg-primary-700 font-medium"
-                  : "hover:bg-primary-700/30"
+              className={`pill pill-primary ${
+                item.value === filter.value ? "active" : ""
               }`}
             >
               {item.title}

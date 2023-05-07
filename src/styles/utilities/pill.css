@@ -1,0 +1,15 @@
+.pill {
+  @apply py-1 px-3 sm:py-1.5 sm:px-4 min-w-[70px] text-sm rounded-2xl border-[1.5px]  cursor-pointer inline-flex items-center justify-center gap-1;
+}
+
+.pill.pill-primary {
+  @apply border-primary-700;
+}
+
+.pill.pill-primary:not(.active) {
+  @apply hover:bg-primary-700/30;
+}
+
+.pill.pill-primary.active {
+  @apply bg-primary-700 font-medium;
+}

@@ -113,15 +113,13 @@ const Search = () => {
         ) : null}
       </div>
 
-      <div className="flex items-stretch flex-wrap gap-x-2 gap-y-3  sm:gap-x-3 mb-10">
+      <div className="flex items-stretch flex-wrap gap-x-2 gap-y-3 mb-10">
         {searchOptions.map((item) => (
           <button
             key={item.type}
             onClick={() => changeType(item.type)}
-            className={`py-1 px-3 sm:py-1.5 sm:px-4 min-w-[70px] text-sm rounded-2xl ring-[1.5px] ring-primary-700 cursor-pointer ${
-              item.type === type
-                ? "bg-primary-700 font-medium"
-                : "hover:bg-primary-700/30"
+            className={`pill pill-primary ${
+              item.type === type ? "active" : ""
             }`}
           >
             {item.title}
@@ -129,10 +127,10 @@ const Search = () => {
         ))}
 
         <button
-          className={`py-1 px-3 sm:py-1.5 sm:px-4 min-w-[70px] text-sm rounded-2xl ring-[1.5px] cursor-pointer inline-flex items-center justify-center gap-1 sm:ml-auto ${
+          className={`pill sm:ml-auto ${
             adult
-              ? "ring-primary-700 text-inherit"
-              : "ring-secondary-800 text-secondary-500 "
+              ? "border-success-600 text-inherit"
+              : "border-secondary-800 text-secondary-500 "
           }`}
           onClick={() => setAdult((prev) => !prev)}
         >

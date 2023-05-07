@@ -61,21 +61,19 @@ const Navbar = () => {
         {/* actions */}
         <div className="flex items-center gap-2 ml-auto">
           <button
-            className={`px-2 py-2 rounded-sm ${
-              showSearch ? "bg-white/30 " : "hover:bg-white/30"
-            }`}
+            className={`btn-icon btn-ghost ${showSearch ? "active" : ""}`}
             onClick={toggleSearch}
           >
-            <HiSearch className="text-lg" />
+            <HiSearch className="text-xl" />
           </button>
           <button
-            className="px-2 py-2 bg-secondary-800 hover:bg-secondary-700 rounded-sm md:hidden"
+            className="btn-icon btn-secondary md:hidden"
             onClick={toggleMenu}
           >
             {showMenu ? (
-              <HiX className="text-lg" />
+              <HiX className="text-xl" />
             ) : (
-              <HiMenu className="text-lg" />
+              <HiMenu className="text-xl" />
             )}
           </button>
         </div>
