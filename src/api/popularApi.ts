@@ -1,17 +1,17 @@
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import { tmdbQuery } from "../app/settings";
+import type { PaginatedResponse } from "../types/common.type";
 import { Media, MediaType } from "../types/media.type";
-import type { TMDBResponse } from "../types/tmdb.type";
 
 export const popularApi = createApi({
   reducerPath: "popularApi",
   baseQuery: tmdbQuery(),
   endpoints: (builder) => ({
-    getPopular: builder.query<TMDBResponse<Media>, MediaType>({
+    getPopular: builder.query<PaginatedResponse<Media>, MediaType>({
       query: (type) => ({
         url: `/${type}/popular`,
       }),
-      transformResponse: (response: TMDBResponse, _meta, type) => {
+      transformResponse: (response: PaginatedResponse, _meta, type) => {
         const results: Media[] = response.results.map((item) => ({
           type: type,
           title: type === "movie" ? item.title : item.name,

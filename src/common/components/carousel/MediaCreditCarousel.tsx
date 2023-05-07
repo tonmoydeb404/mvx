@@ -1,18 +1,19 @@
 import { useEffect, useRef } from "react";
+import { Swiper, SwiperRef, SwiperSlide } from "swiper/react";
 // @ts-ignore
 import { Keyboard, Navigation } from "swiper";
-import { Swiper, SwiperRef, SwiperSlide } from "swiper/react";
 import { mediaBreakpoints } from "../../../config/breakpoints";
 import { QueryResponse } from "../../../types/common.type";
-import { Media } from "../../../types/media.type";
+import { MediaCredit } from "../../../types/credit.types";
 import { MediaCardSkeleton } from "../cards/Media/MediaCard";
-import MediaDisplayCard from "../cards/Media/MediaDisplayCard";
+import MediaCreditCard from "../cards/Media/MediaCreditCard";
 import ErrorState from "../utils/ErrorState";
 import CarouselHeader, { CarouselHeaderProps, Filter } from "./CarouselHeader";
 
-type MediaCarouselProps<F> = CarouselHeaderProps<F> & QueryResponse<Media[]>;
+type MediaCreditCarouselProps<F> = CarouselHeaderProps<F> &
+  QueryResponse<MediaCredit[]>;
 
-const MediaCarousel = <F extends Filter>({
+const MediaCreditCarousel = <F extends Filter>({
   className,
   id,
   isLoading = true,
@@ -21,7 +22,7 @@ const MediaCarousel = <F extends Filter>({
   isEmpty,
   data,
   ...props
-}: MediaCarouselProps<F>) => {
+}: MediaCreditCarouselProps<F>) => {
   const swiperRef = useRef<SwiperRef>(null);
 
   useEffect(() => {
@@ -62,7 +63,7 @@ const MediaCarousel = <F extends Filter>({
         {isSuccess && !isLoading && data
           ? data.map((item) => (
               <SwiperSlide key={item.id}>
-                <MediaDisplayCard {...item} />
+                <MediaCreditCard {...item} />
               </SwiperSlide>
             ))
           : null}
@@ -71,4 +72,4 @@ const MediaCarousel = <F extends Filter>({
   );
 };
 
-export default MediaCarousel;
+export default MediaCreditCarousel;

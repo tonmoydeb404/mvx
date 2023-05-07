@@ -5,7 +5,7 @@ import { Navigate, useSearchParams } from "react-router-dom";
 import { discoverApi } from "../api/discoverApi";
 import { SearchType, useLazySearchQuery } from "../api/searchApi";
 import { useAppDispatch } from "../app/hooks";
-import MediaCard from "../common/components/cards/MediaCard";
+import MediaDisplayCard from "../common/components/cards/Media/MediaDisplayCard";
 import ErrorState from "../common/components/utils/ErrorState";
 import Loading from "../common/components/utils/Loading";
 
@@ -151,7 +151,7 @@ const Search = () => {
           {searchResult.data.total_results > 0 ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-5 gap-y-10 mb-20">
               {searchResult.data.results.map((item) => (
-                <MediaCard key={item.id} {...item} />
+                <MediaDisplayCard key={item.id} {...item} />
               ))}
             </div>
           ) : (

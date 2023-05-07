@@ -1,14 +1,14 @@
-import { useMovieSimilarQuery } from "../../../api/movieApi";
-import MediaCarousel from "../carousel/MediaCarousel";
+import { useMovieRecomendationsQuery } from "../../../../api/movieApi";
+import MediaCarousel from "../../carousel/MediaCarousel";
 
-type MovieSimilarProps = {
+type MovieRecomendationsProps = {
   id: string;
   className?: string;
 };
 
-const MovieSimilar = ({ id, className }: MovieSimilarProps) => {
+const MovieRecomendations = ({ id, className }: MovieRecomendationsProps) => {
   const { isError, isFetching, isLoading, isSuccess, data } =
-    useMovieSimilarQuery(id);
+    useMovieRecomendationsQuery(id);
 
   return (
     <MediaCarousel
@@ -16,13 +16,13 @@ const MovieSimilar = ({ id, className }: MovieSimilarProps) => {
       isSuccess={isSuccess}
       isEmpty={isSuccess && data.total_results === 0}
       isLoading={isLoading || isFetching}
-      id={"movie-smilar"}
+      id={"movie-recomendations"}
       isError={isError}
       className={`container ${className}`}
-      title="Smilar Movies"
+      title="Recomendations"
       filters={false}
     />
   );
 };
 
-export default MovieSimilar;
+export default MovieRecomendations;

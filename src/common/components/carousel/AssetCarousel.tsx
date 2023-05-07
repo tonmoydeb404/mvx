@@ -1,14 +1,15 @@
-import { Swiper, SwiperSlide } from "swiper/react";
+import { useEffect, useRef } from "react";
+import { Swiper, SwiperRef, SwiperSlide } from "swiper/react";
 // @ts-ignore
 import { Keyboard, Navigation } from "swiper";
 import { assetBreakpoints } from "../../../config/breakpoints";
 import { Asset, AssetType } from "../../../types/asset.type";
-import { ApiResponse } from "../../../types/common.type";
+import { QueryResponse } from "../../../types/common.type";
 import AssetCard, { AssetCardSkeleton } from "../cards/AssetCard";
 import ErrorState from "../utils/ErrorState";
 import CarouselHeader, { CarouselHeaderProps, Filter } from "./CarouselHeader";
 
-type AssetCarouselProps<F> = CarouselHeaderProps<F> & ApiResponse<Asset[]>;
+type AssetCarouselProps<F> = CarouselHeaderProps<F> & QueryResponse<Asset[]>;
 
 const AssetCarousel = <F extends Filter<AssetType>>({
   className,
@@ -20,6 +21,11 @@ const AssetCarousel = <F extends Filter<AssetType>>({
   data,
   ...props
 }: AssetCarouselProps<F>) => {
+  const swiperRef = useRef<SwiperRef>(null);
+
+  useEffect(() => {
+    swiperRef.current?.swiper.slideTo(0);
+  }, [props.filter]);
   return (
     <div className={className}>
       <CarouselHeader id={id} {...props} />
@@ -36,11 +42,11 @@ const AssetCarousel = <F extends Filter<AssetType>>({
       ) : null}
 
       <Swiper
+        ref={swiperRef}
         modules={[Navigation, Keyboard]}
         breakpoints={assetBreakpoints}
         navigation={{ nextEl: `#next-${id}`, prevEl: `#prev-${id}` }}
         keyboard
-        mousewheel
       >
         {/* Loading State */}
         {isLoading

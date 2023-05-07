@@ -1,9 +1,10 @@
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import { MediaImage } from "../../../types/media.type";
+import { PERSON_PLACEHOLDER } from "../../../../config/default-images";
+import { Asset } from "../../../../types/asset.type";
+import { getPoster } from "../../../utils/common";
 
-const PersonImage = ({ file_path, aspect_ratio }: MediaImage) => {
-  const src = `https://image.tmdb.org/t/p/w500${file_path}`;
-  const placeholder = "/images/poster-loading.jpg";
+const AssetProfile = ({ file_path, aspect_ratio }: Asset) => {
+  const src = getPoster(file_path);
   return (
     <div
       className="w-full relative rounded overflow-hidden"
@@ -12,7 +13,7 @@ const PersonImage = ({ file_path, aspect_ratio }: MediaImage) => {
       <LazyLoadImage
         src={src}
         loading="lazy"
-        placeholderSrc={placeholder}
+        placeholderSrc={PERSON_PLACEHOLDER}
         className="w-full h-full"
         width={"100%"}
         height={"100%"}
@@ -21,7 +22,7 @@ const PersonImage = ({ file_path, aspect_ratio }: MediaImage) => {
   );
 };
 
-export const PersonImageSkeleton = ({
+export const AssetProfileSkeleton = ({
   className = "",
 }: {
   className?: string;
@@ -36,4 +37,4 @@ export const PersonImageSkeleton = ({
   );
 };
 
-export default PersonImage;
+export default AssetProfile;

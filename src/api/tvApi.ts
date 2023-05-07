@@ -1,92 +1,83 @@
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import { tmdbQuery } from "../app/settings";
-import average from "../common/utils/average";
-import {
-  Media,
-  MediaCredit,
-  MediaCredits,
-  MediaDetails,
-  MediaImages,
-  MediaVideos,
-} from "../types/media.type";
-import { MediaCreditResponse, TMDBResponse } from "../types/tmdb.type";
+import { Asset } from "../types/asset.type";
+import { PaginatedResponse } from "../types/common.type";
+import { PersonCredit } from "../types/credit.types";
+import { Media } from "../types/media.type";
+import { TvCredits, TvDetails, TvImages, TvVideos } from "../types/tv.type";
 
 export const tvApi = createApi({
   reducerPath: "tvApi",
   baseQuery: tmdbQuery(),
   endpoints: (builder) => ({
-    tvDetails: builder.query<MediaDetails, string | number>({
+    tvDetails: builder.query<TvDetails, string | number>({
       query: (tvId) => ({
         url: `/tv/${tvId}`,
       }),
-      transformResponse(response: { [key: string]: any }) {
-        const tv: MediaDetails = {
-          title: response.name,
-          backdrop: response.backdrop_path,
-          date: response.first_air_date,
-          genres: response.genres,
-          id: response.id,
-          overview: response.overview,
-          rating: response.vote_average,
-          runtime: average(response.episode_run_time),
-          tagline: response.tagline,
-          thumbnail: response.poster_path,
-          type: "tv",
-          creators: response.created_by,
-          episodes: response.number_of_episodes,
-          seasons: response.number_of_seasons,
-        };
-        return tv;
-      },
     }),
-    tvCredits: builder.query<MediaCredits, string | number>({
+    tvCredits: builder.query<TvCredits<PersonCredit>, string | number>({
       query: (tvId) => ({
         url: `/tv/${tvId}/credits`,
       }),
-      transformResponse(response: MediaCreditResponse) {
-        const writer: MediaCredit[] = response.crew
-          .filter((crew) => crew.department === "Writing")
-          .map((crew) => ({
-            id: crew.id,
-            avatar: crew.profile_path,
-            credit: crew.job,
-            name: crew.name,
-            credit_id: crew.credit_id,
-          }));
-        const cast: MediaCredit[] = response.cast.map((cast) => ({
+      transformResponse(response: TvCredits) {
+        const cast: PersonCredit[] = response.cast.map((cast) => ({
           id: cast.id,
-          avatar: cast.profile_path,
+          profile_path: cast.profile_path,
           credit: cast.character,
           name: cast.name,
           credit_id: cast.credit_id,
         }));
-        const director: MediaCredit[] = response.crew
-          .filter((crew) => crew.department === "Directing")
-          .map((crew) => ({
-            id: crew.id,
-            avatar: crew.profile_path,
-            credit: crew.job,
-            name: crew.name,
-            credit_id: crew.credit_id,
-          }));
-        return { writer, cast, director };
+        const crew: PersonCredit[] = response.crew.map((crew) => ({
+          id: crew.id,
+          profile_path: crew.profile_path,
+          credit: crew.job,
+          name: crew.name,
+          credit_id: crew.credit_id,
+        }));
+        return { id: response.id, crew, cast };
       },
     }),
-    tvVideos: builder.query<MediaVideos, string | number>({
+    tvVideos: builder.query<TvVideos<Asset>, string | number>({
       query: (tvId) => ({
         url: `/tv/${tvId}/videos`,
       }),
+      transformResponse(response: TvVideos) {
+        const results: Asset[] = response.results
+          .filter((video) => video.site === "YouTube")
+          .map((video) => ({
+            aspect_ratio: null,
+            file_path: video.key,
+            type: "video",
+          }));
+
+        return { id: response.id, results };
+      },
     }),
-    tvImages: builder.query<MediaImages, string | number>({
+    tvImages: builder.query<TvImages<Asset>, string | number>({
       query: (tvId) => ({
         url: `/tv/${tvId}/images`,
       }),
+      transformResponse(response: TvImages) {
+        const backdrops: Asset[] = response.backdrops.map((image) => ({
+          aspect_ratio: image.aspect_ratio,
+          file_path: image.file_path,
+          type: "backdrop",
+        }));
+
+        const posters: Asset[] = response.posters.map((image) => ({
+          aspect_ratio: image.aspect_ratio,
+          file_path: image.file_path,
+          type: "poster",
+        }));
+
+        return { id: response.id, backdrops, posters };
+      },
     }),
-    tvSimilar: builder.query<TMDBResponse<Media>, string | number>({
+    tvSimilar: builder.query<PaginatedResponse<Media>, string | number>({
       query: (tvId) => ({
         url: `/tv/${tvId}/similar`,
       }),
-      transformResponse: (response: TMDBResponse) => {
+      transformResponse: (response: PaginatedResponse) => {
         const results: Media[] = response.results.map((item) => ({
           type: "tv",
           title: item.name,
@@ -98,11 +89,11 @@ export const tvApi = createApi({
         return { ...response, results };
       },
     }),
-    tvRecomendations: builder.query<TMDBResponse<Media>, string | number>({
+    tvRecomendations: builder.query<PaginatedResponse<Media>, string | number>({
       query: (tvId) => ({
         url: `/tv/${tvId}/recommendations`,
       }),
-      transformResponse: (response: TMDBResponse) => {
+      transformResponse: (response: PaginatedResponse) => {
         const results: Media[] = response.results.map((item) => ({
           type: "tv",
           title: item.name,
@@ -127,3 +118,5 @@ export const {
   useLazyTvImagesQuery,
   useLazyTvVideosQuery,
 } = tvApi;
+
+// TODO: STRUCTURE THIS API

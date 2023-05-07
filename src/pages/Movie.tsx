@@ -1,25 +1,31 @@
 import { useParams } from "react-router-dom";
 import { useMovieDetailsQuery } from "../api/movieApi";
-import MovieAssets from "../common/components/movie/MovieAssets";
-import MovieCasts from "../common/components/movie/MovieCasts";
-import MovieDetails from "../common/components/movie/MovieDetails";
-import MovieRecomendations from "../common/components/movie/MovieRecomendations";
-import MovieSimilar from "../common/components/movie/MovieSimilar";
+import MovieAssets from "../common/components/pages/movie/MovieAssets";
+import MovieCasts from "../common/components/pages/movie/MovieCasts";
+import MovieDetails from "../common/components/pages/movie/MovieDetails";
+import MovieRecomendations from "../common/components/pages/movie/MovieRecomendations";
+import MovieSimilar from "../common/components/pages/movie/MovieSimilar";
 import NotFound from "./error/NotFound";
 
 const Movie = () => {
   const { id } = useParams<{ id: string }>();
   if (!id) return <NotFound />;
 
-  const movieDetails = useMovieDetailsQuery(id);
+  const { isError, isFetching, isLoading, isSuccess, data, error } =
+    useMovieDetailsQuery(id);
+
+  // handle not found
+  if (isError && "status" in error && error?.status === 404) {
+    return <NotFound />;
+  }
 
   return (
     <>
       <MovieDetails
-        isSuccess={movieDetails.isSuccess}
-        isLoading={movieDetails.isFetching || movieDetails.isLoading}
-        isError={movieDetails.isError}
-        data={movieDetails.data}
+        isSuccess={isSuccess}
+        isLoading={isFetching || isLoading}
+        isError={isError}
+        data={data}
       />
       <MovieCasts id={id} className="mb-24" />
       <MovieAssets id={id} className="mb-24" />

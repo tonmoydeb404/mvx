@@ -1,31 +1,33 @@
 import { useParams } from "react-router-dom";
 import { usePersonDetailsQuery } from "../api/personApi";
-import PersonDetailsCredit from "../common/components/PersonDetails/PersonDetailsCredit";
-import PersonDetailsHeader from "../common/components/PersonDetails/PersonDetailsHeader";
-import PersonDetailsImages from "../common/components/PersonDetails/PersonDetailsImages";
+import PersonCredits from "../common/components/pages/person/PersonCredits";
+import PersonDetails from "../common/components/pages/person/PersonDetails";
+import PersonImages from "../common/components/pages/person/PersonImages";
 import NotFound from "./error/NotFound";
 
 const Person = () => {
   const { id } = useParams<{ id: string }>();
   if (!id) return <NotFound />;
 
-  const person = usePersonDetailsQuery(id);
+  const { isError, isFetching, isLoading, isSuccess, data, error } =
+    usePersonDetailsQuery(id);
 
-  // TODO: Handle not found
-  // if (person.isError && status in person.error) {
-  //   return <NotFound />;
-  // }
+  // handle not found
+  if (isError && "status" in error && error?.status === 404) {
+    return <NotFound />;
+  }
 
   return (
     <>
-      <PersonDetailsHeader
-        isError={person.isError}
-        isLoading={person.isLoading || person.isFetching}
-        data={person.data}
-        isSuccess={person.isSuccess}
+      <PersonDetails
+        isError={isError}
+        isLoading={isLoading || isFetching}
+        data={data}
+        isSuccess={isSuccess}
+        isEmpty={isSuccess && !data}
       />
-      <PersonDetailsCredit id={id} />
-      <PersonDetailsImages id={id} />
+      <PersonCredits id={id} className="mb-24" />
+      <PersonImages id={id} />
     </>
   );
 };

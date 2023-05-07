@@ -1,7 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import { tmdbQuery } from "../app/settings";
+import type { PaginatedResponse } from "../types/common.type";
 import { Media, MediaType } from "../types/media.type";
-import type { TMDBResponse } from "../types/tmdb.type";
 
 export type SearchType = MediaType | "multi";
 
@@ -16,11 +16,11 @@ export const searchApi = createApi({
   reducerPath: "searchApi",
   baseQuery: tmdbQuery(),
   endpoints: (builder) => ({
-    search: builder.query<TMDBResponse<Media>, SearchArg>({
+    search: builder.query<PaginatedResponse<Media>, SearchArg>({
       query: (arg) => ({
         url: `/search/${arg.type}?query=${arg.query}&page=${arg.page}&include_adult=${arg.adult}`,
       }),
-      transformResponse: (response: TMDBResponse, _meta, { type }) => {
+      transformResponse: (response: PaginatedResponse, _meta, { type }) => {
         const results: Media[] = response.results.map((item) => ({
           type: type === "multi" ? item.media_type : type,
           title: (item.media_type || type) === "movie" ? item.title : item.name,

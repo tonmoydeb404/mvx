@@ -1,6 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import { tmdbQuery } from "../app/settings";
-import { Media } from "../types/media.type";
+import { Asset } from "../types/asset.type";
+import { MediaCredit } from "../types/credit.types";
 import {
   PersonCredits,
   PersonDetails,
@@ -17,34 +18,45 @@ export const personApi = createApi({
         url: `/person/${personId}`,
       }),
     }),
-    personCredits: builder.query<PersonCredits<Media>, string | number>({
+    personCredits: builder.query<PersonCredits<MediaCredit>, string | number>({
       query: (personId) => ({
         url: `/person/${personId}/combined_credits`,
       }),
       transformResponse(response: PersonCredits) {
-        const cast: Media[] = response.cast.map((item) => ({
+        const cast: MediaCredit[] = response.cast.map((item) => ({
           type: item.media_type,
           title: item.title || item.name,
           thumbnail: item.poster_path,
           id: item.id,
           rating: item.vote_average,
           date: item.first_air_date || item.release_date,
+          credit: item.character,
         }));
-        const crew: Media[] = response.crew.map((item) => ({
+        const crew: MediaCredit[] = response.crew.map((item) => ({
           type: item.media_type,
           title: item.title || item.name,
           thumbnail: item.poster_path,
           id: item.id,
           rating: item.vote_average,
           date: item.first_air_date || item.release_date,
+          credit: item.job,
         }));
         return { id: response.id, cast, crew };
       },
     }),
-    personImages: builder.query<PersonImages, string | number>({
+    personImages: builder.query<PersonImages<Asset>, string | number>({
       query: (personId) => ({
         url: `/person/${personId}/images`,
       }),
+      transformResponse(response: PersonImages) {
+        const profiles: Asset[] = response.profiles.map((image) => ({
+          aspect_ratio: image.aspect_ratio,
+          file_path: image.file_path,
+          type: "profiles",
+        }));
+
+        return { id: response.id, profiles };
+      },
     }),
     personSocial: builder.query<PersonSocial, string | number>({
       query: (personId) => ({

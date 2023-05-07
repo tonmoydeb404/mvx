@@ -1,12 +1,14 @@
-import { usePersonImagesQuery } from "../../../api/personApi";
-import PersonImage, { PersonImageSkeleton } from "../person/PersonImage";
-import ErrorState from "../utils/ErrorState";
+import { usePersonImagesQuery } from "../../../../api/personApi";
+import AssetProfile, {
+  AssetProfileSkeleton,
+} from "../../cards/AssetCard/AssetProfile";
+import ErrorState from "../../utils/ErrorState";
 
-type PersonDetailsImagesProps = {
+type PersonImagesProps = {
   id: string;
 };
 
-const PersonDetailsImages = ({ id }: PersonDetailsImagesProps) => {
+const PersonImages = ({ id }: PersonImagesProps) => {
   const { isSuccess, data, isError, isLoading, isFetching } =
     usePersonImagesQuery(id);
 
@@ -22,10 +24,10 @@ const PersonDetailsImages = ({ id }: PersonDetailsImagesProps) => {
         {/* Loading State */}
         {isLoading || isFetching ? (
           <>
-            <PersonImageSkeleton />
-            <PersonImageSkeleton className="hidden min-[320px]:block" />
-            <PersonImageSkeleton className="hidden md:block" />
-            <PersonImageSkeleton className="hidden xl:block" />
+            <AssetProfileSkeleton />
+            <AssetProfileSkeleton className="hidden min-[320px]:block" />
+            <AssetProfileSkeleton className="hidden md:block" />
+            <AssetProfileSkeleton className="hidden xl:block" />
           </>
         ) : null}
 
@@ -40,7 +42,7 @@ const PersonDetailsImages = ({ id }: PersonDetailsImagesProps) => {
         {/* Success State */}
         {!isLoading && !isFetching && isSuccess && data.profiles?.length
           ? data.profiles.map((image) => {
-              return <PersonImage {...image} key={image.file_path} />;
+              return <AssetProfile {...image} key={image.file_path} />;
             })
           : null}
       </div>
@@ -48,4 +50,4 @@ const PersonDetailsImages = ({ id }: PersonDetailsImagesProps) => {
   );
 };
 
-export default PersonDetailsImages;
+export default PersonImages;

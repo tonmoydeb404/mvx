@@ -1,12 +1,12 @@
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
-import { PERSON_IMAGE } from "../../../config/default-images";
+import { PERSON_PLACEHOLDER } from "../../../config/default-images";
 import { PersonCredit } from "../../../types/credit.types";
 
 const PersonCreditCard = ({ profile_path, name, credit, id }: PersonCredit) => {
   const image = profile_path
     ? `https://image.tmdb.org/t/p/original${profile_path}`
-    : PERSON_IMAGE;
+    : PERSON_PLACEHOLDER;
 
   return (
     <div className="flex flex-col items-center text-center">
@@ -15,12 +15,12 @@ const PersonCreditCard = ({ profile_path, name, credit, id }: PersonCredit) => {
           <LazyLoadImage
             src={image}
             alt={name}
-            placeholderSrc={PERSON_IMAGE}
+            placeholderSrc={PERSON_PLACEHOLDER}
             className="object-cover object-center w-full h-full"
             loading="lazy"
             width="100%"
             height="100%"
-            visibleByDefault={image === PERSON_IMAGE}
+            visibleByDefault={image === PERSON_PLACEHOLDER}
           />
         </div>
       </Link>

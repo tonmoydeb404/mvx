@@ -1,9 +1,11 @@
-import { PersonDetails } from "../../../types/person.type";
-import genderList from "../../utils/genderList";
-import PersonSocial, { PersonSocialSkeleton } from "../person/PersonSocial";
-import ErrorState from "../utils/ErrorState";
+import { QueryResponse } from "../../../../types/common.type";
+import { PersonDetails as PersonDetailsType } from "../../../../types/person.type";
+import { getPoster } from "../../../utils/common";
+import genderList from "../../../utils/genderList";
+import ErrorState from "../../utils/ErrorState";
+import PersonSocial, { PersonSocialSkeleton } from "./PersonSocial";
 
-export const PersonDetailsHeaderSkeleton = () => {
+export const PersonDetailsSkeleton = () => {
   return (
     <header className={`animate-pulse mb-28 pt-28`}>
       <div className="container flex flex-col md:flex-row gap-10">
@@ -38,24 +40,17 @@ export const PersonDetailsHeaderSkeleton = () => {
   );
 };
 
-type PersonDetailsHeaderProps = {
-  isLoading: boolean;
-  isError: boolean;
-  isSuccess: boolean;
-  data: PersonDetails | undefined;
-};
+type PersonDetailsProps = QueryResponse<PersonDetailsType>;
 
-const PersonDetailsHeader = ({
+const PersonDetails = ({
   data,
   isError,
   isLoading,
   isSuccess,
-}: PersonDetailsHeaderProps) => {
+}: PersonDetailsProps) => {
   // Success State
   if (!isLoading && isSuccess && data) {
-    const image = data.profile_path
-      ? `https://image.tmdb.org/t/p/w500${data.profile_path}`
-      : "/images/poster-loading.jpg";
+    const image = getPoster(data.profile_path);
     return (
       <header className="mb-28 pt-28">
         <div className="container flex flex-col items-start md:flex-row z-[1] relative gap-10">
@@ -125,7 +120,7 @@ const PersonDetailsHeader = ({
   }
 
   // Loading State
-  return <PersonDetailsHeaderSkeleton />;
+  return <PersonDetailsSkeleton />;
 };
 
-export default PersonDetailsHeader;
+export default PersonDetails;

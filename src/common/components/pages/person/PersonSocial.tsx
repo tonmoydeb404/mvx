@@ -4,7 +4,7 @@ import {
   FaInstagram,
   FaTwitterSquare,
 } from "react-icons/fa";
-import { usePersonSocialQuery } from "../../../api/personApi";
+import { usePersonSocialQuery } from "../../../../api/personApi";
 
 export const PersonSocialSkeleton = () => (
   <div className="animate-pulse">

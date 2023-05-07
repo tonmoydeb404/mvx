@@ -1,6 +1,7 @@
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import { tmdbQuery } from "../app/settings";
 import { Asset } from "../types/asset.type";
+import { PaginatedResponse } from "../types/common.type";
 import { PersonCredit } from "../types/credit.types";
 import { Media } from "../types/media.type";
 import {
@@ -9,7 +10,6 @@ import {
   MovieImages,
   MovieVideos,
 } from "../types/movie.type";
-import { TMDBResponse } from "../types/tmdb.type";
 
 export const movieApi = createApi({
   reducerPath: "movieApi",
@@ -78,11 +78,11 @@ export const movieApi = createApi({
         return { id: response.id, backdrops, posters };
       },
     }),
-    movieSimilar: builder.query<TMDBResponse<Media>, string | number>({
+    movieSimilar: builder.query<PaginatedResponse<Media>, string | number>({
       query: (movieId) => ({
         url: `/movie/${movieId}/similar`,
       }),
-      transformResponse: (response: TMDBResponse) => {
+      transformResponse: (response: PaginatedResponse) => {
         const results: Media[] = response.results.map((item) => ({
           type: "movie",
           title: item.title,
@@ -94,11 +94,14 @@ export const movieApi = createApi({
         return { ...response, results };
       },
     }),
-    movieRecomendations: builder.query<TMDBResponse<Media>, string | number>({
+    movieRecomendations: builder.query<
+      PaginatedResponse<Media>,
+      string | number
+    >({
       query: (movieId) => ({
         url: `/movie/${movieId}/recommendations`,
       }),
-      transformResponse: (response: TMDBResponse) => {
+      transformResponse: (response: PaginatedResponse) => {
         const results: Media[] = response.results.map((item) => ({
           type: "movie",
           title: item.title,

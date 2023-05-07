@@ -1,15 +1,19 @@
-import { useMovieDetailsQuery } from "../../../api/movieApi";
-import { useTvDetailsQuery } from "../../../api/tvApi";
-import usdFormat from "../../utils/usdFormat";
-import CircularProgress from "../utils/CircularProgress";
-import ErrorState from "../utils/ErrorState";
+import { QueryResponse } from "../../../../types/common.type";
+import { MovieDetails as MovieDetailsType } from "../../../../types/movie.type";
+import {
+  dateFormat,
+  formatRuntime,
+  getBackdrop,
+  getPoster,
+  usdFormat,
+} from "../../../utils/common";
 
-type MediaDetailsHeaderProps = {
-  type: "movie" | "tv";
-  id: string;
-};
+import CircularProgress from "../../utils/CircularProgress";
+import ErrorState from "../../utils/ErrorState";
 
-export const MediaDetailsHeaderSkeleton = () => {
+type MovieDetailsProps = QueryResponse<MovieDetailsType>;
+
+export const MovieDetailsSkeleton = () => {
   return (
     <header className={`animate-pulse mb-28 pt-28`}>
       <div className="container flex flex-col md:flex-row gap-10">
@@ -38,27 +42,18 @@ export const MediaDetailsHeaderSkeleton = () => {
   );
 };
 
-const MediaDetailsHeader = ({ id, type }: MediaDetailsHeaderProps) => {
-  const { isLoading, isFetching, isError, isSuccess, data } =
-    type === "movie" ? useMovieDetailsQuery(id) : useTvDetailsQuery(id);
-
-  if (!isFetching && !isLoading && isSuccess) {
-    const background = data.backdrop
-      ? `https://image.tmdb.org/t/p/original${data.backdrop}`
-      : "";
-    const poster = data.thumbnail
-      ? `https://image.tmdb.org/t/p/w500${data.thumbnail}`
-      : "/images/no-poster.jpg";
-    const date = data.date
-      ? new Date(data.date).toLocaleString("en-us", {
-          month: "short",
-          year: "numeric",
-          day: "2-digit",
-        })
-      : "Unknown";
-    const runtime = data.runtime
-      ? `${Math.floor(data.runtime / 60)}h ${data.runtime % 60}min`
-      : "Unknown";
+const MovieDetails = ({
+  data,
+  isError,
+  isLoading,
+  isSuccess,
+}: MovieDetailsProps) => {
+  // success state
+  if (!isLoading && isSuccess && data) {
+    const background = getBackdrop(data.backdrop_path);
+    const poster = getPoster(data.poster_path);
+    const date = dateFormat(data.release_date) || "Unknown";
+    const runtime = formatRuntime(data.runtime) || "Unknown";
     return (
       <header
         style={{ backgroundImage: `url('${background}')` }}
@@ -72,17 +67,17 @@ const MediaDetailsHeader = ({ id, type }: MediaDetailsHeaderProps) => {
             <h1 className="font-medium text-2xl sm:text-3xl">{data.title}</h1>
             <h2 className="text-lg text-secondary-300 mb-5">{data.tagline}</h2>
             <div className="flex flex-wrap-reverse gap-3 justify-between mb-10">
-              {data.rating ? (
+              {data.vote_average ? (
                 <div className="relative">
                   <CircularProgress
-                    progress={(data.rating / 10) * 100}
+                    progress={(data.vote_average / 10) * 100}
                     radius={38}
                     stroke={5}
                     foregroundClassName="stroke-primary-700 fill-secondary-700/70"
                     backgroundClassName="stroke-transparent fill-transparent"
                   />
                   <span className="text-xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-medium">
-                    {data.rating.toFixed(1)}
+                    {data.vote_average.toFixed(1)}
                   </span>
                 </div>
               ) : null}
@@ -111,62 +106,37 @@ const MediaDetailsHeader = ({ id, type }: MediaDetailsHeaderProps) => {
                 <span className="text-secondary-400">{date}</span>
               </div>
               <div className="flex items-center gap-4">
-                <b>{data.type === "tv" ? "Average Runtime:" : "Runtime:"}</b>
+                <b>Runtime:</b>
                 <span className="text-secondary-400">{runtime}</span>
               </div>
             </div>
-            {data.type === "movie" ? (
-              <div className="flex flex-col lg:flex-row lg:items-center gap-y-2 gap-x-5 mb-3 pb-2.5 border-b border-b-secondary-700">
-                <div className="flex items-center gap-4">
-                  <b>Budget:</b>
-                  <span className="text-secondary-400">
-                    {usdFormat.format(data.budget)}
-                  </span>
-                </div>
-                <div className="flex items-center gap-4">
-                  <b>Revenue:</b>
-                  <span className="text-secondary-400">
-                    {usdFormat.format(data.revenue)}
-                  </span>
-                </div>
+            <div className="flex flex-col lg:flex-row lg:items-center gap-y-2 gap-x-5 mb-3 pb-2.5 border-b border-b-secondary-700">
+              <div className="flex items-center gap-4">
+                <b>Budget:</b>
+                <span className="text-secondary-400">
+                  {usdFormat(data.budget)}
+                </span>
               </div>
-            ) : (
-              <>
-                <div className="flex flex-col lg:flex-row lg:items-center gap-y-2 gap-x-5 mb-3 pb-2.5 border-b border-b-secondary-700">
-                  <div className="flex items-center gap-4">
-                    <b>Seasons:</b>
-                    <span className="text-secondary-400">
-                      {data.seasons || "Unknown"}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <b>Episodes:</b>
-                    <span className="text-secondary-400">
-                      {data.episodes || "Unknown"}
-                    </span>
-                  </div>
-                </div>
-                <div className="flex flex-col lg:flex-row lg:items-center gap-y-2 gap-x-4 mb-3 pb-2.5 border-b border-b-secondary-700">
-                  <b>Creators:</b>
-                  <span className="text-secondary-400">
-                    {data.creators?.length
-                      ? data.creators.map((creator) => creator.name).join(", ")
-                      : "Unknown"}
-                  </span>
-                </div>
-              </>
-            )}
+              <div className="flex items-center gap-4">
+                <b>Revenue:</b>
+                <span className="text-secondary-400">
+                  {usdFormat(data.revenue)}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </header>
     );
   }
 
-  if (!isFetching && !isLoading && isError) {
+  // error state
+  if (!isLoading && isError) {
     return <ErrorState className="w-full min-h-screen" />;
   }
 
-  return <MediaDetailsHeaderSkeleton />;
+  // Loading state
+  return <MovieDetailsSkeleton />;
 };
 
-export default MediaDetailsHeader;
+export default MovieDetails;

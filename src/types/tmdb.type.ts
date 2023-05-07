@@ -1,29 +1,5 @@
 export type TimeType = "day" | "week";
 
-export type TMDBResponse<T = { [key: string]: any }> = {
-  page: number;
-  results: T[];
-  total_pages: number;
-  total_results: number;
-};
-
-export type MediaCreditResponse = {
-  id: number;
-  cast: { [key: string]: any }[];
-  crew: { [key: string]: any }[];
-};
-
-export type MediaVideoResponse<T = { [key: string]: any }> = {
-  id: number;
-  results: T[];
-};
-
-export type MediaImageResponse<T = { [key: string]: any }> = {
-  id: number;
-  backdrops: T[];
-  posters: T[];
-};
-
 export type SortBy =
   | "popularity.asc"
   | "popularity.desc"

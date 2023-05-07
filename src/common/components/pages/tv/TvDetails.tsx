@@ -1,19 +1,20 @@
-import { ApiResponse } from "../../../types/common.type";
-import { MovieDetails as MovieDetailsType } from "../../../types/movie.type";
+import { QueryResponse } from "../../../../types/common.type";
+import { TvDetails as TvDetailsType } from "../../../../types/tv.type";
 import {
+  average,
   dateFormat,
   formatRuntime,
   getBackdrop,
   getPoster,
   usdFormat,
-} from "../../utils/common";
+} from "../../../utils/common";
 
-import CircularProgress from "../utils/CircularProgress";
-import ErrorState from "../utils/ErrorState";
+import CircularProgress from "../../utils/CircularProgress";
+import ErrorState from "../../utils/ErrorState";
 
-type MovieDetailsProps = ApiResponse<MovieDetailsType>;
+type TvDetailsProps = QueryResponse<TvDetailsType>;
 
-export const MovieDetailsSkeleton = () => {
+export const TvDetailsSkeleton = () => {
   return (
     <header className={`animate-pulse mb-28 pt-28`}>
       <div className="container flex flex-col md:flex-row gap-10">
@@ -42,18 +43,13 @@ export const MovieDetailsSkeleton = () => {
   );
 };
 
-const MovieDetails = ({
-  data,
-  isError,
-  isLoading,
-  isSuccess,
-}: MovieDetailsProps) => {
+const TvDetails = ({ data, isError, isLoading, isSuccess }: TvDetailsProps) => {
   // success state
   if (!isLoading && isSuccess && data) {
     const background = getBackdrop(data.backdrop_path);
     const poster = getPoster(data.poster_path);
-    const date = dateFormat(data.release_date) || "Unknown";
-    const runtime = formatRuntime(data.runtime) || "Unknown";
+    const date = dateFormat(data.first_air_date) || "Unknown";
+    const runtime = formatRuntime(average(data.episode_run_time)) || "Unknown";
     return (
       <header
         style={{ backgroundImage: `url('${background}')` }}
@@ -61,10 +57,10 @@ const MovieDetails = ({
       >
         <div className="container flex flex-col md:flex-row z-[1] relative gap-10">
           <div className="w-[90%] min-[350px]:w-[300px] rounded-lg overflow-hidden ">
-            <img src={poster} alt={data.title} className="w-full" />
+            <img src={poster} alt={data.name} className="w-full" />
           </div>
           <div className="flex-1">
-            <h1 className="font-medium text-2xl sm:text-3xl">{data.title}</h1>
+            <h1 className="font-medium text-2xl sm:text-3xl">{data.name}</h1>
             <h2 className="text-lg text-secondary-300 mb-5">{data.tagline}</h2>
             <div className="flex flex-wrap-reverse gap-3 justify-between mb-10">
               {data.vote_average ? (
@@ -106,23 +102,35 @@ const MovieDetails = ({
                 <span className="text-secondary-400">{date}</span>
               </div>
               <div className="flex items-center gap-4">
-                <b>Runtime:</b>
+                <b>Average Episode Runtime:</b>
                 <span className="text-secondary-400">{runtime}</span>
               </div>
             </div>
             <div className="flex flex-col lg:flex-row lg:items-center gap-y-2 gap-x-5 mb-3 pb-2.5 border-b border-b-secondary-700">
               <div className="flex items-center gap-4">
-                <b>Budget:</b>
+                <b>Episodes:</b>
                 <span className="text-secondary-400">
-                  {usdFormat(data.budget)}
+                  {usdFormat(data.number_of_episodes)}
                 </span>
               </div>
               <div className="flex items-center gap-4">
-                <b>Revenue:</b>
+                <b>Seasons:</b>
                 <span className="text-secondary-400">
-                  {usdFormat(data.revenue)}
+                  {usdFormat(data.number_of_seasons)}
                 </span>
               </div>
+            </div>
+            <div className="flex flex-col lg:flex-row lg:items-center gap-y-2 gap-x-4 mb-3 pb-2.5 border-b border-b-secondary-700">
+              <b>Languages:</b>
+              <span className="text-secondary-400">
+                {data.languages.join(", ")}
+              </span>
+            </div>
+            <div className="flex flex-col lg:flex-row lg:items-center gap-y-2 gap-x-4 mb-3 pb-2.5 border-b border-b-secondary-700">
+              <b>Created By:</b>
+              <span className="text-secondary-400">
+                {data.created_by.map((c) => c.name).join(", ")}
+              </span>
             </div>
           </div>
         </div>
@@ -136,7 +144,7 @@ const MovieDetails = ({
   }
 
   // Loading state
-  return <MovieDetailsSkeleton />;
+  return <TvDetailsSkeleton />;
 };
 
-export default MovieDetails;
+export default TvDetails;

@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import {
-  useLazyMovieImagesQuery,
-  useLazyMovieVideosQuery,
-} from "../../../api/movieApi";
-import { Asset, AssetType } from "../../../types/asset.type";
-import AssetCarousel from "../carousel/AssetCarousel";
-import { Filter } from "../carousel/CarouselHeader";
+  useLazyTvImagesQuery,
+  useLazyTvVideosQuery,
+} from "../../../../api/tvApi";
+import { Asset, AssetType } from "../../../../types/asset.type";
+import AssetCarousel from "../../carousel/AssetCarousel";
+import { Filter } from "../../carousel/CarouselHeader";
 
-type MovieAssetsProps = {
+type TvAssetsProps = {
   id: string;
   className?: string;
 };
@@ -18,9 +18,9 @@ const filters: Filter<AssetType>[] = [
   { title: "Posters", value: "poster" },
 ];
 
-const MovieAssets = ({ id, className }: MovieAssetsProps) => {
-  const [getVideos] = useLazyMovieVideosQuery();
-  const [getImages] = useLazyMovieImagesQuery();
+const TvAssets = ({ id, className }: TvAssetsProps) => {
+  const [getVideos] = useLazyTvVideosQuery();
+  const [getImages] = useLazyTvImagesQuery();
 
   const [data, setData] = useState<Asset[] | undefined>(undefined);
   const [isLoading, setLoading] = useState(true);
@@ -61,7 +61,7 @@ const MovieAssets = ({ id, className }: MovieAssetsProps) => {
   return (
     <AssetCarousel
       data={data}
-      isSuccess={!isLoading && !isEmpty && !isError}
+      isSuccess={!isLoading && !isError}
       isEmpty={isEmpty}
       isLoading={isLoading}
       id={"movie-assets"}
@@ -75,4 +75,4 @@ const MovieAssets = ({ id, className }: MovieAssetsProps) => {
   );
 };
 
-export default MovieAssets;
+export default TvAssets;

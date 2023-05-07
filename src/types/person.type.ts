@@ -1,5 +1,3 @@
-import { MediaImage } from "./media.type";
-
 export type Person = {
   name: string;
   profile_path: string | null;
@@ -23,9 +21,9 @@ export type PersonSocial = {
   twitter_id: string | null;
   instagram_id: string | null;
 };
-export type PersonImages = {
+export type PersonImages<T = { [key: string]: any }> = {
   id: number;
-  profiles: MediaImage[];
+  profiles: T[];
 };
 export type PersonCredits<T = { [key: string]: any }> = {
   id: number;

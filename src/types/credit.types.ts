@@ -1,3 +1,5 @@
+import { Media } from "./media.type";
+
 export type PersonCredit = {
   id: string | number;
   name: string;
@@ -5,3 +7,5 @@ export type PersonCredit = {
   credit: string;
   profile_path: string | null;
 };
+
+export type MediaCredit = Media & { credit: string };

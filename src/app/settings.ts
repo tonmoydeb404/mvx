@@ -1,4 +1,8 @@
-import { fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import {
+  BaseQueryFn,
+  FetchArgs,
+  fetchBaseQuery,
+} from "@reduxjs/toolkit/query/react";
 
 const TMDB_TOKEN = import.meta.env.VITE_APP_TMDB_TOKEN;
 
@@ -11,4 +15,8 @@ export const tmdbQuery = () =>
       }
       return headers;
     },
-  });
+  }) as BaseQueryFn<
+    string | FetchArgs,
+    unknown,
+    { status?: number; data?: { [key: string]: any } }
+  >;

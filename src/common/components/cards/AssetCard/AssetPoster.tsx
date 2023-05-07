@@ -27,7 +27,7 @@ const AssetPoster = ({ file_path, aspect_ratio }: Asset) => {
 export const AssetPosterSkeleton = () => (
   <div className="animate-pulse">
     <div
-      style={{ aspectRatio: 1.5 }}
+      style={{ aspectRatio: 0.667 }}
       className="rounded-lg overflow-hidden w-full relative bg-secondary-800"
     ></div>
   </div>

@@ -1,4 +1,4 @@
-export type AssetType = "poster" | "backdrop" | "video";
+export type AssetType = "poster" | "backdrop" | "video" | "profiles";
 
 export type Asset = {
   type: AssetType;

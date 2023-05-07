@@ -1,5 +1,5 @@
-import { useMovieCreditsQuery } from "../../../api/movieApi";
-import PersonCreditCarousel from "../carousel/PersonCreditCarousel";
+import { useMovieCreditsQuery } from "../../../../api/movieApi";
+import PersonCreditCarousel from "../../carousel/PersonCreditCarousel";
 
 type MovieCastsProps = {
   id: string;

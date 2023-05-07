@@ -1,7 +1,8 @@
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import { tmdbQuery } from "../app/settings";
+import { PaginatedResponse } from "../types/common.type";
 import { Media, MediaType } from "../types/media.type";
-import type { SortBy, TMDBResponse } from "../types/tmdb.type";
+import type { SortBy } from "../types/tmdb.type";
 
 type DiscoverArg = {
   type: MediaType;
@@ -13,11 +14,11 @@ export const discoverApi = createApi({
   reducerPath: "discoverApi",
   baseQuery: tmdbQuery(),
   endpoints: (builder) => ({
-    discover: builder.query<TMDBResponse<Media>, DiscoverArg>({
+    discover: builder.query<PaginatedResponse<Media>, DiscoverArg>({
       query: (arg) => ({
         url: `/discover/${arg.type}?page=${arg.page}&sort_by=${arg.sortBy}`,
       }),
-      transformResponse: (response: TMDBResponse, _meta, { type }) => {
+      transformResponse: (response: PaginatedResponse, _meta, { type }) => {
         const results: Media[] = response.results.map((item) => ({
           type: type,
           title: type === "movie" ? item.title : item.name,
