@@ -6,9 +6,11 @@ import { popularApi } from "../api/popularApi";
 import { searchApi } from "../api/searchApi";
 import { trendingApi } from "../api/trendingApi";
 import { tvApi } from "../api/tvApi";
+import { videoShowcaseSlice } from "../features/videoShowcase/videoShowcaseSlice";
 
 export const store = configureStore({
   reducer: {
+    [videoShowcaseSlice.name]: videoShowcaseSlice.reducer,
     [trendingApi.reducerPath]: trendingApi.reducer,
     [popularApi.reducerPath]: popularApi.reducer,
     [discoverApi.reducerPath]: discoverApi.reducer,

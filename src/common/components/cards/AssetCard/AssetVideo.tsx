@@ -1,11 +1,15 @@
 import { HiOutlinePlay } from "react-icons/hi";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { useAppDispatch } from "../../../../app/hooks";
 import { VIDEO_PLACEHOLDER } from "../../../../config/default-images";
+import { openVideoShowcase } from "../../../../features/videoShowcase/videoShowcaseSlice";
 import { Asset } from "../../../../types/asset.type";
-import { youtubeThumbnail } from "../../../utils/common";
+import { youtubeThumbnail, youtubeUrl } from "../../../utils/common";
 
 const AssetVideo = ({ file_path }: Asset) => {
+  const dispatch = useAppDispatch();
   const src = youtubeThumbnail(file_path);
+  const url = youtubeUrl(file_path);
 
   return (
     <div className="group">
@@ -21,8 +25,11 @@ const AssetVideo = ({ file_path }: Asset) => {
           visibleByDefault={src === VIDEO_PLACEHOLDER}
         />
 
-        <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-secondary-900 bg-opacity-0 hover:bg-opacity-40 duration-300 cursor-pointer">
-          <HiOutlinePlay className="text-7xl hover:text-primary-600" />
+        <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-secondary-900 bg-opacity-0 hover:bg-opacity-40 duration-300">
+          <HiOutlinePlay
+            className="text-7xl hover:text-primary-600 cursor-pointer"
+            onClick={() => dispatch(openVideoShowcase(url))}
+          />
         </div>
       </div>
     </div>

@@ -36,3 +36,7 @@ export const getPoster = (poster_path: string | null) =>
 // get youtube thumbnail
 export const youtubeThumbnail = (id: string) =>
   `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+
+// get youtube video url
+export const youtubeUrl = (id: string) =>
+  `https://www.youtube.com/watch?v=${id}`;
