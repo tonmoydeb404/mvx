@@ -56,6 +56,11 @@ const Navbar = () => {
               Tv Shows
             </NavLink>
           </li>
+          <li className="h-full flex items-stretch">
+            <NavLink className="navbar_link" to={"/popular-persons"}>
+              Popular Persons
+            </NavLink>
+          </li>
         </ul>
 
         {/* actions */}

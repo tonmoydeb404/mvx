@@ -4,6 +4,7 @@ import Discover from "../pages/Discover";
 import Home from "../pages/Home";
 import Movie from "../pages/Movie";
 import Person from "../pages/Person";
+import PopularPerson from "../pages/PopularPerson";
 import Search from "../pages/Search";
 import Tv from "../pages/Tv";
 import ErrorBoundary from "../pages/error/ErrorBoundary";
@@ -33,6 +34,10 @@ export const router = createBrowserRouter([
       {
         path: "/person/:id",
         element: <Person />,
+      },
+      {
+        path: "/popular-persons",
+        element: <PopularPerson />,
       },
       {
         path: "/",

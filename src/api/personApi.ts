@@ -1,8 +1,10 @@
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
 import { tmdbQuery } from "../app/settings";
 import { Asset } from "../types/asset.type";
+import { PaginatedResponse } from "../types/common.type";
 import { MediaCredit } from "../types/credit.types";
 import {
+  Person,
   PersonCredits,
   PersonDetails,
   PersonImages,
@@ -63,6 +65,28 @@ export const personApi = createApi({
         url: `/person/${personId}/external_ids`,
       }),
     }),
+    personPopular: builder.query<PaginatedResponse<Person>, number>({
+      query: (page) => ({
+        url: `/person/popular?page=${page}`,
+      }),
+      // Only have one cache entry because the arg always maps to one string
+      serializeQueryArgs: ({ endpointName }) => {
+        return endpointName;
+      },
+      merge(currentCacheData, responseData, { arg }) {
+        if (arg > 1) {
+          currentCacheData.results.push(...responseData.results);
+          currentCacheData.page = responseData.page;
+          return currentCacheData;
+        }
+
+        return responseData;
+      },
+      // Refetch when the page arg changes
+      forceRefetch({ currentArg, previousArg }) {
+        return currentArg !== previousArg;
+      },
+    }),
   }),
 });
 
@@ -71,4 +95,5 @@ export const {
   usePersonCreditsQuery,
   usePersonImagesQuery,
   usePersonSocialQuery,
+  useLazyPersonPopularQuery,
 } = personApi;
