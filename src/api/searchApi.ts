@@ -22,18 +22,13 @@ export const searchApi = createApi({
       }),
       transformResponse: (response: PaginatedResponse, _meta, { type }) => {
         const results: Media[] = response.results.map((item) => ({
-          type: type === "multi" ? item.media_type : type,
-          title: (item.media_type || type) === "movie" ? item.title : item.name,
-          thumbnail:
-            (item.media_type || type) === "person"
-              ? item.profile_path
-              : item.poster_path,
+          type: item.media_type || type,
+          title: item.title || item.name,
+          thumbnail: item.profile_path || item.poster_path,
           id: item.id,
           rating: item.vote_average,
-          date:
-            (item.media_type || type) === "tv"
-              ? item.first_air_date
-              : item.release_date,
+          date: item.first_air_date || item.release_date,
+          backdrop: item.backdrop_path,
         }));
         return { ...response, results };
       },

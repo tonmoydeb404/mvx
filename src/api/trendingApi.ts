@@ -22,6 +22,7 @@ export const trendingApi = createApi({
           id: item.id,
           rating: item.vote_average,
           date: item.first_air_date || item.release_date,
+          backdrop: item.backdrop_path,
         }));
         return { ...response, results };
       },
@@ -29,4 +30,4 @@ export const trendingApi = createApi({
   }),
 });
 
-export const { useLazyGetTrendingQuery } = trendingApi;
+export const { useLazyGetTrendingQuery, useGetTrendingQuery } = trendingApi;

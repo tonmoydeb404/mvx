@@ -85,6 +85,7 @@ export const tvApi = createApi({
           id: item.id,
           rating: item.vote_average,
           date: item.first_air_date,
+          backdrop: item.backdrop_path,
         }));
         return { ...response, results };
       },
@@ -101,6 +102,7 @@ export const tvApi = createApi({
           id: item.id,
           rating: item.vote_average,
           date: item.first_air_date,
+          backdrop: item.backdrop_path,
         }));
         return { ...response, results };
       },

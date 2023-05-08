@@ -19,6 +19,7 @@ export const popularApi = createApi({
           id: item.id,
           rating: item.vote_average,
           date: type === "tv" ? item.first_air_date : item.release_date,
+          backdrop: item.backdrop_path,
         }));
         return { ...response, results };
       },

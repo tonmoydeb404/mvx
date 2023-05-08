@@ -7,4 +7,5 @@ export type Media = {
   date: string;
   rating: number;
   id: string | number;
+  backdrop?: string | null;
 };
