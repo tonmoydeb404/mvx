@@ -1,6 +1,6 @@
 import { useGetTrendingQuery } from "../../../../api/trendingApi";
 import { getBackdrop } from "../../../utils/common";
-import HeroSearch from "../../HeroSearch";
+import HeroSearch from "./HeroSearch";
 
 const Hero = () => {
   const { isSuccess, data } = useGetTrendingQuery({ time: "day", type: "all" });

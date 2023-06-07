@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { HiMenu, HiSearch, HiX } from "react-icons/hi";
 import { Link, NavLink } from "react-router-dom";
+import links from "../../../config/links";
 import NavbarMenu from "./NavbarMenu";
 import NavbarSearch from "./NavbarSearch";
 
@@ -41,26 +42,13 @@ const Navbar = () => {
         </Link>
 
         <ul className="hidden md:flex items-stretch gap-2 font-medium">
-          <li className="h-full flex items-stretch">
-            <NavLink className="navbar_link" to={"/"}>
-              Home
-            </NavLink>
-          </li>
-          <li className="h-full flex items-stretch">
-            <NavLink className="navbar_link" to={"/movie"}>
-              Movies
-            </NavLink>
-          </li>
-          <li className="h-full flex items-stretch">
-            <NavLink className="navbar_link" to={"/tv"}>
-              Tv Shows
-            </NavLink>
-          </li>
-          <li className="h-full flex items-stretch">
-            <NavLink className="navbar_link" to={"/popular-persons"}>
-              Popular Persons
-            </NavLink>
-          </li>
+          {links.map((item) => (
+            <li className="h-full flex items-stretch" key={item.path}>
+              <NavLink className="navbar_link" to={item.path}>
+                {item.title}
+              </NavLink>
+            </li>
+          ))}
         </ul>
 
         {/* actions */}

@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import links from "../../../config/links";
 
 type NavbarMenuProps = {
   show: boolean;
@@ -16,30 +17,13 @@ const NavbarMenu = ({ hide, show }: NavbarMenuProps) => {
       className="absolute md:hidden duration-300 left-0 w-full bg-secondary-800 "
     >
       <ul className="container flex flex-col items-stretch gap-2 font-medium py-2">
-        <li>
-          <NavLink className="navbar_menu_link" to={"/"} onClick={hide}>
-            Home
-          </NavLink>
-        </li>
-        <li>
-          <NavLink className="navbar_menu_link" to={"/movie"} onClick={hide}>
-            Movies
-          </NavLink>
-        </li>
-        <li>
-          <NavLink className="navbar_menu_link" to={"/tv"} onClick={hide}>
-            Tv Shows
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            className="navbar_menu_link"
-            to={"/popular-persons"}
-            onClick={hide}
-          >
-            Popular Persons
-          </NavLink>
-        </li>
+        {links.map((item) => (
+          <li key={item.path}>
+            <NavLink className="navbar_menu_link" to={item.path} onClick={hide}>
+              {item.title}
+            </NavLink>
+          </li>
+        ))}
       </ul>
     </div>
   );

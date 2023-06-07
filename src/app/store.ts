@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { discoverApi } from "../api/discoverApi";
+import { genreApi } from "../api/genreApi";
 import { movieApi } from "../api/movieApi";
 import { personApi } from "../api/personApi";
 import { popularApi } from "../api/popularApi";
@@ -18,6 +19,7 @@ export const store = configureStore({
     [movieApi.reducerPath]: movieApi.reducer,
     [tvApi.reducerPath]: tvApi.reducer,
     [personApi.reducerPath]: personApi.reducer,
+    [genreApi.reducerPath]: genreApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -27,7 +29,8 @@ export const store = configureStore({
       searchApi.middleware,
       movieApi.middleware,
       tvApi.middleware,
-      personApi.middleware
+      personApi.middleware,
+      genreApi.middleware
     ),
   devTools: import.meta.env.MODE === "development",
 });
