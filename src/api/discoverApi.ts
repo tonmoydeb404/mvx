@@ -10,6 +10,11 @@ type DiscoverArg = {
   sortBy: SortBy;
 };
 
+type MediaDiscoverArg = {
+  page: number;
+  sortBy: SortBy;
+};
+
 export const discoverApi = createApi({
   reducerPath: "discoverApi",
   baseQuery: tmdbQuery(),
@@ -48,7 +53,126 @@ export const discoverApi = createApi({
         return currentArg !== previousArg;
       },
     }),
+
+    discoverMovies: builder.query<PaginatedResponse<Media>, MediaDiscoverArg>({
+      query: (arg) => ({
+        url: `/discover/movie?page=${arg.page}&sort_by=${arg.sortBy}`,
+      }),
+      transformResponse: (response: PaginatedResponse, _meta) => {
+        const results: Media[] = response.results.map((item) => ({
+          type: "movie",
+          title: item.title,
+          thumbnail: item.poster_path,
+          id: item.id,
+          rating: item.vote_average,
+          date: item.release_date,
+          backdrop: item.backdrop_path,
+        }));
+        return { ...response, results };
+      },
+      // creating cache entry
+      serializeQueryArgs: ({ endpointName }) => {
+        return endpointName;
+      },
+      merge(currentCacheData, responseData, { arg }) {
+        if (arg.page > 1) {
+          currentCacheData.results.push(...responseData.results);
+          currentCacheData.page = responseData.page;
+          return currentCacheData;
+        }
+
+        return responseData;
+      },
+      // Refetch when the page arg changes
+      forceRefetch({ currentArg, previousArg }) {
+        return (
+          currentArg?.page !== previousArg?.page ||
+          currentArg?.sortBy !== previousArg?.sortBy
+        );
+      },
+    }),
+
+    discoverTvs: builder.query<PaginatedResponse<Media>, MediaDiscoverArg>({
+      query: (arg) => ({
+        url: `/discover/tv?page=${arg.page}&sort_by=${arg.sortBy}`,
+      }),
+      transformResponse: (response: PaginatedResponse, _meta) => {
+        const results: Media[] = response.results.map((item) => ({
+          type: "tv",
+          title: item.name,
+          thumbnail: item.poster_path,
+          id: item.id,
+          rating: item.vote_average,
+          date: item.first_air_date,
+          backdrop: item.backdrop_path,
+        }));
+        return { ...response, results };
+      },
+      // creating cache entry
+      serializeQueryArgs: ({ endpointName }) => {
+        return endpointName;
+      },
+      merge(currentCacheData, responseData, { arg }) {
+        if (arg.page > 1) {
+          currentCacheData.results.push(...responseData.results);
+          currentCacheData.page = responseData.page;
+          return currentCacheData;
+        }
+
+        return responseData;
+      },
+      // Refetch when the page arg changes
+      forceRefetch({ currentArg, previousArg }) {
+        return (
+          currentArg?.page !== previousArg?.page ||
+          currentArg?.sortBy !== previousArg?.sortBy
+        );
+      },
+    }),
+
+    discoverPersons: builder.query<PaginatedResponse<Media>, MediaDiscoverArg>({
+      query: (arg) => ({
+        url: `/discover/tv?page=${arg.page}&sort_by=${arg.sortBy}`,
+      }),
+      transformResponse: (response: PaginatedResponse, _meta) => {
+        const results: Media[] = response.results.map((item) => ({
+          type: "person",
+          title: item.name,
+          thumbnail: item.profile_path,
+          id: item.id,
+          rating: item.vote_average,
+          date: item.release_date,
+          backdrop: item.backdrop_path,
+        }));
+        return { ...response, results };
+      },
+      // creating cache entry
+      serializeQueryArgs: ({ endpointName }) => {
+        return endpointName;
+      },
+      merge(currentCacheData, responseData, { arg }) {
+        if (arg.page > 1) {
+          currentCacheData.results.push(...responseData.results);
+          currentCacheData.page = responseData.page;
+          return currentCacheData;
+        }
+
+        return responseData;
+      },
+      // Refetch when the page arg changes
+      forceRefetch({ currentArg, previousArg }) {
+        return (
+          currentArg?.page !== previousArg?.page ||
+          currentArg?.sortBy !== previousArg?.sortBy
+        );
+      },
+    }),
   }),
 });
 
-export const { useLazyDiscoverQuery } = discoverApi;
+export const {
+  useLazyDiscoverQuery,
+  useLazyDiscoverMoviesQuery,
+  useLazyDiscoverPersonsQuery,
+  useLazyDiscoverTvsQuery,
+} = discoverApi;

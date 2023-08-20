@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import AppLayout from "../common/layouts/AppLayout";
-import Discover from "../pages/Discover";
+import DiscoverMovies from "../pages/DiscoverMovies";
+import DiscoverTvs from "../pages/DiscoverTvs";
 import Home from "../pages/Home";
 import Movie from "../pages/Movie";
 import Person from "../pages/Person";
@@ -21,24 +22,28 @@ export const router = createBrowserRouter([
         element: <Search />,
       },
       {
-        path: "/persons",
-        element: <PopularPerson />,
-      },
-      {
         path: "/ai-suggestion",
         element: <Suggestion />,
       },
       {
-        path: "/:type",
-        element: <Discover />,
+        path: "/movie",
+        element: <DiscoverMovies />,
       },
       {
         path: "/movie/:id",
         element: <Movie />,
       },
       {
+        path: "/tv",
+        element: <DiscoverTvs />,
+      },
+      {
         path: "/tv/:id",
         element: <Tv />,
+      },
+      {
+        path: "/person",
+        element: <PopularPerson />,
       },
       {
         path: "/person/:id",
