@@ -28,11 +28,11 @@ const TrendingMedia = ({ className }: TrendingMediaProps) => {
       filters={filters}
       filter={filter}
       setFilter={setFilter}
-      id="popular-media"
+      id="trending-media"
       isError={isError}
       isLoading={isLoading || isFetching}
       isSuccess={isSuccess}
-      title="Popular"
+      title="Trending"
       isEmpty={isSuccess && data?.total_results === 0}
       className={className}
     />
