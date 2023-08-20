@@ -23,7 +23,7 @@ const NavbarSearch = ({ show, onSubmit }: NavbarSearchProps) => {
           placeholder="Search Here"
           required
           type="search"
-          className="form-input py-1 flex-1 justify-self-stretch w-full bg-transparent focus:ring-0 focus:outline-none focus:border-primary-600 border-1 border-slate-600 rounded-sm"
+          className="form-input py-1 flex-1 justify-self-stretch w-full bg-transparent focus:ring-0 focus:outline-none focus:border-primary-600 border-1 border-slate-600 rounded-sm text-slate-50"
         />
         <button type="submit" className="btn btn-primary">
           <span className="hidden sm:inline-block">Search</span>

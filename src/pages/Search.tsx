@@ -2,9 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { CgSpinner } from "react-icons/cg";
 import { HiCheckCircle, HiXCircle } from "react-icons/hi";
 import { Navigate, useSearchParams } from "react-router-dom";
-import { discoverApi } from "../api/discoverApi";
 import { SearchType, useLazySearchQuery } from "../api/searchApi";
-import { useAppDispatch } from "../app/hooks";
 import MediaDisplayCard from "../common/components/cards/Media/MediaDisplayCard";
 import ErrorState from "../common/components/utils/ErrorState";
 import Loading from "../common/components/utils/Loading";
@@ -35,46 +33,41 @@ const Search = () => {
   const [type, setType] = useState<SearchType>(
     (searchParams.get("type") as SearchType) ?? "multi"
   );
-  const [query] = useState(searchParams.get("query"));
+  const query = searchParams.get("query");
   const [loading, setLoading] = useState(true);
   const [adult, setAdult] = useState(false);
 
-  const dispatch = useAppDispatch();
   const [search, searchResult] = useLazySearchQuery();
   const [page, setPage] = useState(1);
 
   // handle data
-  const handleData = useCallback(
-    async (pageNumber: number) => {
-      try {
-        if (!query) throw new Error("invalid query");
-        // update page number
-        setPage(pageNumber);
-        // fetch data from api
-        await search({
-          type,
-          page: pageNumber,
-          query,
-          adult,
-        }).unwrap();
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
-    },
-    [query, type, adult]
-  );
+  const handleData = async (pageNumber: number) => {
+    try {
+      if (!query) throw new Error("invalid query");
+      // update page number
+      setPage(pageNumber);
+      // fetch data from api
+      await search({
+        type,
+        page: pageNumber,
+        query,
+        adult,
+      }).unwrap();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // load more content
   const loadMore = useCallback(async () => {
     await handleData(page + 1);
-  }, [page, type, query, adult]);
+  }, [page]);
 
   // reset our state on search type change
   useEffect(() => {
     setLoading(true);
-    dispatch(discoverApi.util.resetApiState());
     handleData(1);
   }, [type, query, adult]);
 

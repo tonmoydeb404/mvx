@@ -47,7 +47,12 @@ export const searchApi = createApi({
       },
       // Refetch when the page arg changes
       forceRefetch({ currentArg, previousArg }) {
-        return currentArg !== previousArg;
+        return (
+          currentArg?.page !== previousArg?.page ||
+          currentArg?.query !== previousArg?.query ||
+          currentArg?.type !== previousArg?.type ||
+          currentArg?.adult !== previousArg?.adult
+        );
       },
     }),
   }),
