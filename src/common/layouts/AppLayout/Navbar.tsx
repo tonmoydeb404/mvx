@@ -57,7 +57,11 @@ const Navbar = () => {
             className={`btn-icon btn-ghost ${showSearch ? "active" : ""}`}
             onClick={toggleSearch}
           >
-            <HiSearch className="text-xl" />
+            {showSearch ? (
+              <HiX className="text-xl" />
+            ) : (
+              <HiSearch className="text-xl" />
+            )}
           </button>
           <button
             className="btn-icon btn-secondary md:hidden"
