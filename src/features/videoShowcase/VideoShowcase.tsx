@@ -26,6 +26,13 @@ const VideoShowcase = () => {
             className="absolute top-0 left-0"
             width="100%"
             height="100%"
+            light={
+              <img
+                src={"/images/poster-loading.jpg"}
+                className="object-cover object-center w-full aspect-video rounded-lg"
+                loading="lazy"
+              />
+            }
             controls
           />
         </div>
