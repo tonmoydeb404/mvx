@@ -13,6 +13,15 @@
   @apply disabled:opacity-30;
 }
 
+.btn-icon.btn-circle {
+  @apply rounded-full;
+}
+
+.btn-icon.btn-primary {
+  @apply text-white bg-primary-600;
+  @apply hover:bg-primary-700;
+}
+
 .btn-icon.btn-secondary {
   @apply text-white bg-secondary-800;
   @apply hover:bg-secondary-700;

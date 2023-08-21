@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import VideoShowcase from "../../../features/videoShowcase/VideoShowcase";
 import ScrollToTop from "../../components/utils/ScrollToTop";
+import BottomNavbar from "./BottomNavbar";
 import Navbar from "./Navbar";
 
 const AppLayout = () => {
@@ -9,6 +10,7 @@ const AppLayout = () => {
       <ScrollToTop>
         <Navbar />
         <Outlet />
+        <BottomNavbar />
       </ScrollToTop>
       <VideoShowcase />
     </>

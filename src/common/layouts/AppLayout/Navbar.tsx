@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
-import { HiMenu, HiSearch, HiX } from "react-icons/hi";
+import { HiSearch, HiX } from "react-icons/hi";
 import { Link, NavLink } from "react-router-dom";
 import links from "../../../config/links";
-import NavbarMenu from "./NavbarMenu";
 import NavbarSearch from "./NavbarSearch";
 
 const Navbar = () => {
   const [changeBg, setChangeBg] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
-  const [showMenu, setShowMenu] = useState(false);
 
   const changeNavClass = () => {
     window.scrollY >= 100 ? setChangeBg(true) : setChangeBg(false);
@@ -20,13 +18,7 @@ const Navbar = () => {
     };
   }, []);
 
-  const toggleMenu = () => {
-    setShowSearch(false);
-    setShowMenu((prev) => !prev);
-  };
-
   const toggleSearch = () => {
-    setShowMenu(false);
     setShowSearch((prev) => !prev);
   };
 
@@ -63,20 +55,9 @@ const Navbar = () => {
               <HiSearch className="text-xl" />
             )}
           </button>
-          <button
-            className="btn-icon btn-secondary md:hidden"
-            onClick={toggleMenu}
-          >
-            {showMenu ? (
-              <HiX className="text-xl" />
-            ) : (
-              <HiMenu className="text-xl" />
-            )}
-          </button>
         </div>
       </div>
       <NavbarSearch show={showSearch} onSubmit={() => setShowSearch(false)} />
-      <NavbarMenu show={showMenu} hide={() => setShowMenu(false)} />
     </nav>
   );
 };
