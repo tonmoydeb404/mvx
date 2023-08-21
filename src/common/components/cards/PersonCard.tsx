@@ -1,12 +1,15 @@
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
-import { PERSON_PLACEHOLDER } from "../../../config/default-images";
+import {
+  PERSON_EMPTY_PLACEHOLDER,
+  PERSON_PLACEHOLDER,
+} from "../../../config/default-images";
 import { Person } from "../../../types/person.type";
 
 const PersonCard = ({ profile_path, name, id }: Person) => {
   const image = profile_path
     ? `https://image.tmdb.org/t/p/original${profile_path}`
-    : PERSON_PLACEHOLDER;
+    : PERSON_EMPTY_PLACEHOLDER;
 
   return (
     <div className="flex flex-col items-center text-center">
@@ -20,7 +23,7 @@ const PersonCard = ({ profile_path, name, id }: Person) => {
             loading="lazy"
             width="100%"
             height="100%"
-            visibleByDefault={image === PERSON_PLACEHOLDER}
+            visibleByDefault={image === PERSON_EMPTY_PLACEHOLDER}
           />
         </div>
       </Link>

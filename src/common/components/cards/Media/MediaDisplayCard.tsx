@@ -1,5 +1,5 @@
 import { Media } from "../../../../types/media.type";
-import { dateFormat, getPoster } from "../../../utils/common";
+import { dateFormat, getMediaImage } from "../../../utils/common";
 import MediaCard from "./MediaCard";
 
 const MediaDisplayCard = ({
@@ -10,7 +10,7 @@ const MediaDisplayCard = ({
   type,
   id,
 }: Media) => {
-  const image = getPoster(thumbnail);
+  const image = getMediaImage(thumbnail, type);
   const mediaDate = dateFormat(date) || "Unknown";
   const path = `/${type}/${id}`;
   return (

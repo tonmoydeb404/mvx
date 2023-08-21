@@ -5,7 +5,7 @@ import {
   dateFormat,
   formatRuntime,
   getBackdrop,
-  getPoster,
+  getMediaImage,
   usdFormat,
 } from "../../../utils/common";
 
@@ -47,7 +47,7 @@ const TvDetails = ({ data, isError, isLoading, isSuccess }: TvDetailsProps) => {
   // success state
   if (!isLoading && isSuccess && data) {
     const background = getBackdrop(data.backdrop_path);
-    const poster = getPoster(data.poster_path);
+    const poster = getMediaImage(data.poster_path, "tv");
     const date = dateFormat(data.first_air_date) || "Unknown";
     const runtime = formatRuntime(average(data.episode_run_time)) || "Unknown";
     return (

@@ -1,5 +1,5 @@
 import { MediaCredit } from "../../../../types/credit.types";
-import { getPoster } from "../../../utils/common";
+import { getMediaImage } from "../../../utils/common";
 import MediaCard from "./MediaCard";
 
 const MediaCreditCard = ({
@@ -10,7 +10,7 @@ const MediaCreditCard = ({
   type,
   id,
 }: MediaCredit) => {
-  const image = getPoster(thumbnail);
+  const image = getMediaImage(thumbnail, type);
   const path = `/${type}/${id}`;
   return (
     <MediaCard

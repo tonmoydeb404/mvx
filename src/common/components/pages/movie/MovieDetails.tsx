@@ -4,7 +4,7 @@ import {
   dateFormat,
   formatRuntime,
   getBackdrop,
-  getPoster,
+  getMediaImage,
   usdFormat,
 } from "../../../utils/common";
 
@@ -51,7 +51,7 @@ const MovieDetails = ({
   // success state
   if (!isLoading && isSuccess && data) {
     const background = getBackdrop(data.backdrop_path);
-    const poster = getPoster(data.poster_path);
+    const poster = getMediaImage(data.poster_path, "movie");
     const date = dateFormat(data.release_date) || "Unknown";
     const runtime = formatRuntime(data.runtime) || "Unknown";
     return (

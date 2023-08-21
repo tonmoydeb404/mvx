@@ -1,6 +1,7 @@
 import { HiX } from "react-icons/hi";
 import ReactPlayer from "react-player";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { VIDEO_PLACEHOLDER } from "../../config/default-images";
 import { closeVideoShowcase, selectVideoShowcase } from "./videoShowcaseSlice";
 
 const VideoShowcase = () => {
@@ -28,7 +29,7 @@ const VideoShowcase = () => {
             height="100%"
             light={
               <img
-                src={"/images/poster-loading.jpg"}
+                src={VIDEO_PLACEHOLDER}
                 className="object-cover object-center w-full aspect-video rounded-lg"
                 loading="lazy"
               />

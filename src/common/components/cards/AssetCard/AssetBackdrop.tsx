@@ -1,10 +1,10 @@
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { BACKDROP_PLACEHOLDER } from "../../../../config/default-images";
 import { Asset } from "../../../../types/asset.type";
-import { getPoster } from "../../../utils/common";
+import { getBackdrop } from "../../../utils/common";
 
 const AssetBackdrop = ({ file_path, aspect_ratio }: Asset) => {
-  const src = getPoster(file_path);
+  const src = getBackdrop(file_path);
 
   return (
     <div

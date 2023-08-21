@@ -1,6 +1,6 @@
 import { QueryResponse } from "../../../../types/common.type";
 import { PersonDetails as PersonDetailsType } from "../../../../types/person.type";
-import { getPoster } from "../../../utils/common";
+import { getMediaImage } from "../../../utils/common";
 import genderList from "../../../utils/genderList";
 import ErrorState from "../../utils/ErrorState";
 import PersonSocial, { PersonSocialSkeleton } from "./PersonSocial";
@@ -50,7 +50,7 @@ const PersonDetails = ({
 }: PersonDetailsProps) => {
   // Success State
   if (!isLoading && isSuccess && data) {
-    const image = getPoster(data.profile_path);
+    const image = getMediaImage(data.profile_path, "person");
     return (
       <header className="mb-28 pt-28">
         <div className="container flex flex-col items-start md:flex-row z-[1] relative gap-10">

@@ -1,10 +1,10 @@
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { PERSON_PLACEHOLDER } from "../../../../config/default-images";
 import { Asset } from "../../../../types/asset.type";
-import { getPoster } from "../../../utils/common";
+import { getProfile } from "../../../utils/common";
 
 const AssetProfile = ({ file_path, aspect_ratio }: Asset) => {
-  const src = getPoster(file_path);
+  const src = getProfile(file_path);
   return (
     <div
       className="w-full relative rounded overflow-hidden"

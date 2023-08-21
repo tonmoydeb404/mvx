@@ -1,5 +1,9 @@
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
+import {
+  POSTER_EMPTY_PLACEHOLDER,
+  POSTER_PLACEHOLDER,
+} from "../../../../config/default-images";
 import CircularProgress from "../../utils/CircularProgress";
 
 type MediaCardProps = {
@@ -25,12 +29,12 @@ const MediaCard = ({
             <LazyLoadImage
               src={image}
               alt={title}
-              placeholderSrc={"/images/poster-loading.jpg"}
+              placeholderSrc={POSTER_PLACEHOLDER}
               className="object-cover object-center w-full h-full"
               loading="lazy"
               width={"100%"}
               height={"100%"}
-              visibleByDefault={image === "/images/no-poster.jpg"}
+              visibleByDefault={image === POSTER_EMPTY_PLACEHOLDER}
             />
           </div>
         </Link>
