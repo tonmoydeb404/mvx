@@ -20,6 +20,7 @@ const PersonCard = ({ profile_path, name, id }: Person) => {
             alt={name}
             placeholderSrc={PERSON_PLACEHOLDER}
             className="object-cover object-center w-full h-full"
+            wrapperClassName="!bg-cover !bg-center"
             loading="lazy"
             width="100%"
             height="100%"
