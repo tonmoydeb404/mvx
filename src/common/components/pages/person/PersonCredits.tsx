@@ -29,7 +29,7 @@ const PersonCredits = ({ id, className = "" }: PersonCreditsProps) => {
       id={"person-credit"}
       isError={isError}
       className={`container ${className}`}
-      title="Smilar Movies"
+      title="Works"
       filters={creditList}
       filter={creditType}
       setFilter={setCreditType}
