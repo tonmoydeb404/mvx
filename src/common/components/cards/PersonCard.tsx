@@ -13,7 +13,7 @@ const PersonCard = ({ profile_path, name, id }: Person) => {
 
   return (
     <div className="flex flex-col items-center text-center">
-      <Link to={`/person/${id}`} className="block w-full">
+      <Link to={`/persons/${id}`} className="block w-full">
         <div className="aspect-square relative rounded-full overflow-hidden mb-5 w-full">
           <LazyLoadImage
             src={image}
@@ -29,7 +29,7 @@ const PersonCard = ({ profile_path, name, id }: Person) => {
         </div>
       </Link>
 
-      <Link to={`/person/${id}`} className="block">
+      <Link to={`/persons/${id}`} className="block">
         <h3
           className="text-xl font-medium line-clamp-1 hover:text-primary-600"
           title={name}

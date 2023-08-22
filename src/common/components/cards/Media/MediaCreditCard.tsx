@@ -11,7 +11,7 @@ const MediaCreditCard = ({
   id,
 }: MediaCredit) => {
   const image = getMediaImage(thumbnail, type);
-  const path = `/${type}/${id}`;
+  const path = `/${type}s/${id}`;
   return (
     <MediaCard
       image={image}

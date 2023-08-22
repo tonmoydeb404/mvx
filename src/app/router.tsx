@@ -26,27 +26,27 @@ export const router = createBrowserRouter([
         element: <Suggestion />,
       },
       {
-        path: "/movie",
+        path: "/movies",
         element: <DiscoverMovies />,
       },
       {
-        path: "/movie/:id",
+        path: "/movies/:id",
         element: <Movie />,
       },
       {
-        path: "/tv",
+        path: "/tvs",
         element: <DiscoverTvs />,
       },
       {
-        path: "/tv/:id",
+        path: "/tvs/:id",
         element: <Tv />,
       },
       {
-        path: "/person",
+        path: "/persons",
         element: <PopularPerson />,
       },
       {
-        path: "/person/:id",
+        path: "/persons/:id",
         element: <Person />,
       },
 

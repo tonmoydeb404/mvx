@@ -12,7 +12,7 @@ const MediaDisplayCard = ({
 }: Media) => {
   const image = getMediaImage(thumbnail, type);
   const mediaDate = dateFormat(date) || "Unknown";
-  const path = `/${type}/${id}`;
+  const path = `/${type}s/${id}`;
   return (
     <MediaCard
       image={image}
