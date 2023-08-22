@@ -32,7 +32,7 @@ export const AssetProfileSkeleton = ({
       className={`w-full relative rounded overflow-hidden animate-pulse ${className}`}
       style={{ aspectRatio: 0.667 }}
     >
-      <div className="absolute top-0 left-0 w-full h-full bg-slate-800"></div>
+      <div className="absolute top-0 left-0 w-full h-full bg-secondary-base"></div>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 .navbar_link {
   @apply px-4 py-2   inline-flex items-center;
-  @apply relative after:w-full after:h-[2px] after:absolute after:left-0 after:bottom-0 after:bg-primary-600 after:scale-x-0 after:duration-200;
-  @apply hover:after:scale-x-100  hover:text-primary-600;
+  @apply relative after:w-full after:h-[2px] after:absolute after:left-0 after:bottom-0 after:bg-primary-base after:scale-x-0 after:duration-200;
+  @apply hover:after:scale-x-100  hover:text-primary-base;
 }
 
 .navbar_link.active {
@@ -10,9 +10,9 @@
 
 .navbar_menu_link {
   @apply py-1.5 px-3 inline-block duration-200 rounded-sm w-full;
-  @apply hover:bg-secondary-700;
+  @apply hover:bg-secondary-base;
 }
 
 .navbar_menu_link.active {
-  @apply bg-primary-600;
+  @apply bg-primary-base;
 }

@@ -4,13 +4,13 @@
 }
 
 .btn.btn-primary {
-  @apply bg-primary-600 text-white;
-  @apply hover:bg-primary-700;
+  @apply bg-primary-base text-primary-content;
+  @apply hover:bg-primary-dark;
 }
 
 .btn.btn-secondary {
-  @apply bg-secondary-800 text-white border-secondary-700;
-  @apply hover:bg-secondary-700;
+  @apply bg-secondary-base text-secondary-content border-secondary-dark;
+  @apply hover:bg-secondary-dark;
 }
 
 .btn-icon {
@@ -23,20 +23,20 @@
 }
 
 .btn-icon.btn-primary {
-  @apply text-white bg-primary-600;
-  @apply hover:bg-primary-700;
+  @apply text-primary-content bg-primary-base;
+  @apply hover:bg-primary-dark;
 }
 
 .btn-icon.btn-secondary {
-  @apply text-white bg-secondary-800;
-  @apply hover:bg-secondary-700;
+  @apply text-secondary-content bg-secondary-base;
+  @apply hover:bg-secondary-dark;
 }
 
 .btn-icon.btn-ghost {
-  @apply text-white bg-transparent;
-  @apply hover:bg-white/30;
+  @apply text-background-content bg-transparent;
+  @apply hover:bg-background-content/30;
 }
 
 .btn-icon.btn-ghost.active {
-  @apply bg-white/30;
+  @apply bg-background-content/30;
 }

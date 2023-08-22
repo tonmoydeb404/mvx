@@ -53,7 +53,7 @@ const DiscoverTvs = () => {
             <SortSelect
               value={sortBy}
               setValue={setSortBy}
-              className="form-select bg-secondary-800 border-secondary-700 py-1.5"
+              className="form-select bg-secondary-base border-background-content-muted py-1.5"
               id="sortBy"
             />
           </div>

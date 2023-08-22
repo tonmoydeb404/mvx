@@ -10,13 +10,13 @@ const VideoShowcase = () => {
   return show && url ? (
     <div className="fixed top-0 left-0 w-full h-full z-[2000] flex flex-col items-center justify-center">
       <div
-        className="absolute top-0 left-0 w-full h-full bg-secondary-900/70 z-[-1]"
+        className="absolute top-0 left-0 w-full h-full bg-background-base/70 z-[-1]"
         onClick={() => dispatch(closeVideoShowcase())}
       ></div>
 
       <div className="w-full sm:w-[500px] md:w-[650px] lg:w-[800px] flex flex-col items-center justify-center gap-2">
         <button
-          className="p-1.5 duration-300 text-white bg-secondary-700 hover:bg-secondary-800 rounded-sm cursor-pointer self-end"
+          className="p-1.5 duration-300 text-white bg-secondary-base hover:bg-secondary-dark rounded-sm cursor-pointer self-end"
           onClick={() => dispatch(closeVideoShowcase())}
         >
           <HiX className="text-2xl" />

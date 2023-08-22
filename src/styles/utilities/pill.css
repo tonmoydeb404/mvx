@@ -4,37 +4,37 @@
 
 /* PILL PRIMARY */
 .pill.pill-primary {
-  @apply border-primary-700;
+  @apply border-primary-base text-primary-content;
 }
 
 .pill.pill-primary:not(.active) {
-  @apply hover:bg-primary-700/30;
+  @apply hover:bg-primary-base/30;
 }
 
 .pill.pill-primary.active {
-  @apply bg-primary-700 font-medium;
+  @apply bg-primary-base font-medium;
 }
 
 /* PILL SECONDARY */
 .pill.pill-secondary {
-  @apply border-secondary-800 text-white;
+  @apply border-secondary-base text-secondary-content;
 }
 .pill.pill-secondary:not(.active) {
-  @apply hover:bg-secondary-600/30;
+  @apply hover:bg-secondary-base/30;
 }
 
 .pill.pill-secondary.active {
-  @apply bg-secondary-600 font-medium;
+  @apply bg-secondary-base font-medium;
 }
 
 /* PILL SUCCESS */
 .pill.pill-success {
-  @apply border-success-600;
+  @apply border-success-base text-success-content;
 }
 .pill.pill-success:not(.active) {
-  @apply hover:bg-success-600/30;
+  @apply hover:bg-success-base/30;
 }
 
 .pill.pill-success.active {
-  @apply bg-success-600 font-medium;
+  @apply bg-success-base font-medium;
 }

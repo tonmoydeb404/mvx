@@ -24,13 +24,13 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`border-b border-b-secondary-50/10  top-0 left-0 w-full z-[100] duration-200 ${
-        changeBg ? "bg-secondary-900 fixed" : "bg-transparent absolute"
+      className={`border-b border-b-background-content/10  top-0 left-0 w-full z-[100] duration-200 ${
+        changeBg ? "bg-background-base fixed" : "bg-transparent absolute"
       }`}
     >
       <div className="container flex items-stretch h-[50px] gap-10">
         <Link to={"/"} className="font-bold text-2xl self-center">
-          <span className="text-primary-600">M</span>VX
+          <span className="text-primary-base">M</span>VX
         </Link>
 
         <ul className="hidden md:flex items-stretch gap-2 font-medium">

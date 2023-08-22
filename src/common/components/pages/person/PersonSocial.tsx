@@ -8,7 +8,7 @@ import { usePersonSocialQuery } from "../../../../api/personApi";
 
 export const PersonSocialSkeleton = () => (
   <div className="animate-pulse">
-    <div className="w-[26px] h-[26px] bg-slate-800 rounded-sm"></div>
+    <div className="w-[26px] h-[26px] bg-secondary-base rounded-sm"></div>
   </div>
 );
 

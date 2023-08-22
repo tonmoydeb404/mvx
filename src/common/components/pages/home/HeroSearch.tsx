@@ -12,7 +12,7 @@ const HeroSearch = () => {
         required
         type="text"
         name="query"
-        className="py-0 px-2 focus:outline-none border-0 flex-1 text-white bg-transparent placeholder:text-secondary-300 w-full group-hover:placeholder:text-secondary-200"
+        className="py-0 px-2 focus:outline-none border-0 flex-1 text-white bg-transparent placeholder:text-background-base w-full group-hover:placeholder:text-background-content"
         placeholder="Search for movie or tv show"
       />
       <button type="submit" className="btn btn-primary">

@@ -25,9 +25,9 @@ const AssetVideo = ({ file_path }: Asset) => {
           visibleByDefault={src === VIDEO_PLACEHOLDER}
         />
 
-        <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-secondary-900 bg-opacity-0 hover:bg-opacity-40 duration-300">
+        <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-background-base bg-opacity-0 hover:bg-opacity-40 duration-300">
           <HiOutlinePlay
-            className="text-7xl hover:text-primary-600 cursor-pointer"
+            className="text-7xl hover:text-primary-base cursor-pointer"
             onClick={() => dispatch(openVideoShowcase(url))}
           />
         </div>
@@ -38,8 +38,8 @@ const AssetVideo = ({ file_path }: Asset) => {
 
 export const AssetVideoSkeleton = () => (
   <div className="animate-pulse">
-    <div className="aspect-video relative rounded-lg overflow-hidden mb-3 w-full bg-secondary-800"></div>
-    <div className="h-[24px] bg-secondary-800 w-[150px] rounded"></div>
+    <div className="aspect-video relative rounded-lg overflow-hidden mb-3 w-full bg-secondary-base"></div>
+    <div className="h-[24px] bg-secondary-base w-[150px] rounded"></div>
   </div>
 );
 

@@ -31,7 +31,7 @@ const PersonCard = ({ profile_path, name, id }: Person) => {
 
       <Link to={`/persons/${id}`} className="block">
         <h3
-          className="text-xl font-medium line-clamp-1 hover:text-primary-600"
+          className="text-xl font-medium line-clamp-1 hover:text-primary-base"
           title={name}
         >
           {name}
@@ -44,9 +44,9 @@ const PersonCard = ({ profile_path, name, id }: Person) => {
 export const PersonCardSkeleton = () => {
   return (
     <div className="flex flex-col items-center text-center animate-pulse">
-      <div className="aspect-square relative rounded-full overflow-hidden mb-5 bg-secondary-700 w-full"></div>
+      <div className="aspect-square relative rounded-full overflow-hidden mb-5 bg-secondary-base w-full"></div>
 
-      <div className="h-[24px] w-[80%] bg-secondary-700 rounded"></div>
+      <div className="h-[24px] w-[80%] bg-secondary-base rounded"></div>
     </div>
   );
 };

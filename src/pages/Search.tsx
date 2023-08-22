@@ -131,9 +131,9 @@ const Search = () => {
             onClick={() => setAdult((prev) => !prev)}
           >
             {adult ? (
-              <HiCheckCircle className="text-success-600" />
+              <HiCheckCircle className="text-success-base" />
             ) : (
-              <HiXCircle className="text-error-700" />
+              <HiXCircle className="text-error-base" />
             )}{" "}
             Include adult
           </button>
@@ -166,7 +166,7 @@ const Search = () => {
                     <>
                       <span>Loading More</span>
                       <CgSpinner
-                        className={`animate-spin text-primary-600 text-2xl`}
+                        className={`animate-spin text-primary-base text-2xl`}
                       />
                     </>
                   ) : (

@@ -26,7 +26,7 @@ const AssetBackdrop = ({ file_path, aspect_ratio }: Asset) => {
 
 export const AssetBackdropSkeleton = () => (
   <div className="animate-pulse">
-    <div className="aspect-video rounded-lg overflow-hidden w-full relative bg-secondary-800"></div>
+    <div className="aspect-video rounded-lg overflow-hidden w-full relative bg-secondary-base"></div>
   </div>
 );
 
