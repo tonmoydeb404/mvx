@@ -16,7 +16,9 @@ const BottomNavbar = () => {
             }
           >
             <link.Icon className="w-[24px] h-[24px]" />
-            <span className="block text-xs font-light">{link.title}</span>
+            <span className="block text-xs font-light text-background-content">
+              {link.title}
+            </span>
           </NavLink>
         ))}
       </div>
