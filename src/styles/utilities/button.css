@@ -1,11 +1,16 @@
 .btn {
-  @apply px-4 py-2 font-medium text-sm uppercase rounded inline-flex items-center gap-1 duration-300;
-  @apply disabled:opacity-30;
+  @apply px-4 py-2 font-medium text-sm uppercase rounded inline-flex items-center gap-1 duration-300 border border-transparent;
+  @apply disabled:opacity-30 disabled:cursor-not-allowed;
 }
 
 .btn.btn-primary {
   @apply bg-primary-600 text-white;
   @apply hover:bg-primary-700;
+}
+
+.btn.btn-secondary {
+  @apply bg-secondary-800 text-white border-secondary-700;
+  @apply hover:bg-secondary-700;
 }
 
 .btn-icon {

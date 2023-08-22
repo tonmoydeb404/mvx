@@ -2,6 +2,7 @@
   @apply py-1 px-3 sm:py-1.5 sm:px-4 min-w-[70px] text-sm rounded-2xl border-[1.5px]  cursor-pointer inline-flex items-center justify-center gap-1;
 }
 
+/* PILL PRIMARY */
 .pill.pill-primary {
   @apply border-primary-700;
 }
@@ -12,4 +13,28 @@
 
 .pill.pill-primary.active {
   @apply bg-primary-700 font-medium;
+}
+
+/* PILL SECONDARY */
+.pill.pill-secondary {
+  @apply border-secondary-800 text-white;
+}
+.pill.pill-secondary:not(.active) {
+  @apply hover:bg-secondary-600/30;
+}
+
+.pill.pill-secondary.active {
+  @apply bg-secondary-600 font-medium;
+}
+
+/* PILL SUCCESS */
+.pill.pill-success {
+  @apply border-success-600;
+}
+.pill.pill-success:not(.active) {
+  @apply hover:bg-success-600/30;
+}
+
+.pill.pill-success.active {
+  @apply bg-success-600 font-medium;
 }

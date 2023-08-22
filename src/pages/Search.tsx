@@ -126,9 +126,7 @@ const Search = () => {
 
           <button
             className={`pill sm:ml-auto ${
-              adult
-                ? "border-success-600 text-inherit"
-                : "border-secondary-800 text-secondary-500 "
+              adult ? "pill-success" : "pill-secondary"
             }`}
             onClick={() => setAdult((prev) => !prev)}
           >
@@ -160,7 +158,7 @@ const Search = () => {
             {hasMore ? (
               <div className="flex items-center justify-center">
                 <button
-                  className="px-5 py-2.5 rounded-sm border border-secondary-700 bg-secondary-800 inline-flex gap-2 hover:bg-secondary-700 duration-200 disabled:cursor-not-allowed disabled:hover:bg-secondary-800"
+                  className="btn btn-secondary"
                   onClick={loadMore}
                   disabled={searchResult.isFetching || searchResult.isLoading}
                 >
@@ -187,5 +185,3 @@ const Search = () => {
 };
 
 export default Search;
-
-// TODO: refactor this code
