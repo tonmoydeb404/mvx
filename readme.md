@@ -1,5 +1,7 @@
 # MVX - Explore Your Entertainment
 
+<img src="./public/images/og/MVX-OPENGRAPH.jpg" alt="MVX BANNER" style="width: 100%" />
+<br />
 MVX is an exciting application designed to help you dive into the world of movies, TV shows, and more. In creating this project, I've been on a learning journey, improving my skills in handling frontend APIs while exploring the power of `rtk-query`. The backbone of MVX is the robust `TMDB API`, which provides a wealth of information to enhance your experience.
 
 **Live Preview**: [https://mvx404.netlify.app/](https://mvx404.netlify.app/)
