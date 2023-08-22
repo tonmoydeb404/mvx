@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
 import { usePersonDetailsQuery } from "../api/personApi";
 import PersonCredits from "../common/components/pages/person/PersonCredits";
@@ -19,6 +20,7 @@ const Person = () => {
 
   return (
     <>
+      <Helmet>{isSuccess ? <title>{data.name} - MVX</title> : null}</Helmet>
       <PersonDetails
         isError={isError}
         isLoading={isLoading || isFetching}

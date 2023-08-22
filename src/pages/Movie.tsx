@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
 import { useMovieDetailsQuery } from "../api/movieApi";
 import MovieAssets from "../common/components/pages/movie/MovieAssets";
@@ -21,6 +22,7 @@ const Movie = () => {
 
   return (
     <>
+      <Helmet>{isSuccess ? <title>{data.title} - MVX</title> : null}</Helmet>
       <MovieDetails
         isSuccess={isSuccess}
         isLoading={isFetching || isLoading}

@@ -1,3 +1,4 @@
+import { HelmetProvider } from "react-helmet-async";
 import { Provider } from "react-redux";
 import { RouterProvider } from "react-router-dom";
 import "../styles/style.css";
@@ -7,7 +8,9 @@ import { store } from "./store";
 const App = () => {
   return (
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <HelmetProvider>
+        <RouterProvider router={router} />
+      </HelmetProvider>
     </Provider>
   );
 };

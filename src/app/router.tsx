@@ -5,9 +5,8 @@ import DiscoverTvs from "../pages/DiscoverTvs";
 import Home from "../pages/Home";
 import Movie from "../pages/Movie";
 import Person from "../pages/Person";
-import PopularPerson from "../pages/PopularPerson";
+import PopularPersons from "../pages/PopularPersons";
 import Search from "../pages/Search";
-import Suggestion from "../pages/Suggestion";
 import Tv from "../pages/Tv";
 import ErrorBoundary from "../pages/error/ErrorBoundary";
 import NotFound from "../pages/error/NotFound";
@@ -20,10 +19,6 @@ export const router = createBrowserRouter([
       {
         path: "/search",
         element: <Search />,
-      },
-      {
-        path: "/ai-suggestion",
-        element: <Suggestion />,
       },
       {
         path: "/movies",
@@ -43,7 +38,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/persons",
-        element: <PopularPerson />,
+        element: <PopularPersons />,
       },
       {
         path: "/persons/:id",

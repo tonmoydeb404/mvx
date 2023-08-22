@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { CgSpinner } from "react-icons/cg";
 import { HiCheckCircle, HiXCircle } from "react-icons/hi";
 import { Navigate, useSearchParams } from "react-router-dom";
@@ -92,91 +93,96 @@ const Search = () => {
     : false;
 
   return (
-    <div className="container pt-28 pb-20">
-      <div className="flex sm:items-center flex-wrap flex-col sm:flex-row sm:justify-between gap-x-10 gap-y-1 mb-5">
-        <h3 className="text-2xl">
-          Search result of -{" "}
-          <span className="font-medium">'{searchParams.get("query")}'</span>
-        </h3>
+    <>
+      <Helmet>
+        <title>Search Result - MVX</title>
+      </Helmet>
+      <div className="container pt-28 pb-20">
+        <div className="flex sm:items-center flex-wrap flex-col sm:flex-row sm:justify-between gap-x-10 gap-y-1 mb-5">
+          <h3 className="text-2xl">
+            Search result of -{" "}
+            <span className="font-medium">'{searchParams.get("query")}'</span>
+          </h3>
 
-        {!loading && searchResult.isSuccess ? (
-          <span className="text-sm uppercase opacity-50">
-            total results: {searchResult.data?.total_results ?? 0}
-          </span>
-        ) : null}
-      </div>
-
-      <div className="flex items-stretch flex-wrap gap-x-2 gap-y-3 mb-10">
-        {searchOptions.map((item) => (
-          <button
-            key={item.type}
-            onClick={() => changeType(item.type)}
-            className={`pill pill-primary ${
-              item.type === type ? "active" : ""
-            }`}
-          >
-            {item.title}
-          </button>
-        ))}
-
-        <button
-          className={`pill sm:ml-auto ${
-            adult
-              ? "border-success-600 text-inherit"
-              : "border-secondary-800 text-secondary-500 "
-          }`}
-          onClick={() => setAdult((prev) => !prev)}
-        >
-          {adult ? (
-            <HiCheckCircle className="text-success-600" />
-          ) : (
-            <HiXCircle className="text-error-700" />
-          )}{" "}
-          Include adult
-        </button>
-      </div>
-
-      {searchResult.isLoading || loading ? <Loading /> : null}
-      {!loading && searchResult.isSuccess ? (
-        <>
-          {searchResult.data.total_results > 0 ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-5 gap-y-10 mb-20">
-              {searchResult.data.results.map((item) => (
-                <MediaDisplayCard key={item.id} {...item} />
-              ))}
-            </div>
-          ) : (
-            <ErrorState
-              className="min-h-[300px]"
-              text="Sorry, we couldn’t find any results for this search."
-            />
-          )}
-
-          {hasMore ? (
-            <div className="flex items-center justify-center">
-              <button
-                className="px-5 py-2.5 rounded-sm border border-secondary-700 bg-secondary-800 inline-flex gap-2 hover:bg-secondary-700 duration-200 disabled:cursor-not-allowed disabled:hover:bg-secondary-800"
-                onClick={loadMore}
-                disabled={searchResult.isFetching || searchResult.isLoading}
-              >
-                {searchResult.isFetching ? (
-                  <>
-                    <span>Loading More</span>
-                    <CgSpinner
-                      className={`animate-spin text-primary-600 text-2xl`}
-                    />
-                  </>
-                ) : (
-                  "Load More"
-                )}
-              </button>
-            </div>
+          {!loading && searchResult.isSuccess ? (
+            <span className="text-sm uppercase opacity-50">
+              total results: {searchResult.data?.total_results ?? 0}
+            </span>
           ) : null}
-        </>
-      ) : null}
+        </div>
 
-      {searchResult.isError ? <ErrorState className="min-h-[300px]" /> : null}
-    </div>
+        <div className="flex items-stretch flex-wrap gap-x-2 gap-y-3 mb-10">
+          {searchOptions.map((item) => (
+            <button
+              key={item.type}
+              onClick={() => changeType(item.type)}
+              className={`pill pill-primary ${
+                item.type === type ? "active" : ""
+              }`}
+            >
+              {item.title}
+            </button>
+          ))}
+
+          <button
+            className={`pill sm:ml-auto ${
+              adult
+                ? "border-success-600 text-inherit"
+                : "border-secondary-800 text-secondary-500 "
+            }`}
+            onClick={() => setAdult((prev) => !prev)}
+          >
+            {adult ? (
+              <HiCheckCircle className="text-success-600" />
+            ) : (
+              <HiXCircle className="text-error-700" />
+            )}{" "}
+            Include adult
+          </button>
+        </div>
+
+        {searchResult.isLoading || loading ? <Loading /> : null}
+        {!loading && searchResult.isSuccess ? (
+          <>
+            {searchResult.data.total_results > 0 ? (
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-5 gap-y-10 mb-20">
+                {searchResult.data.results.map((item) => (
+                  <MediaDisplayCard key={item.id} {...item} />
+                ))}
+              </div>
+            ) : (
+              <ErrorState
+                className="min-h-[300px]"
+                text="Sorry, we couldn’t find any results for this search."
+              />
+            )}
+
+            {hasMore ? (
+              <div className="flex items-center justify-center">
+                <button
+                  className="px-5 py-2.5 rounded-sm border border-secondary-700 bg-secondary-800 inline-flex gap-2 hover:bg-secondary-700 duration-200 disabled:cursor-not-allowed disabled:hover:bg-secondary-800"
+                  onClick={loadMore}
+                  disabled={searchResult.isFetching || searchResult.isLoading}
+                >
+                  {searchResult.isFetching ? (
+                    <>
+                      <span>Loading More</span>
+                      <CgSpinner
+                        className={`animate-spin text-primary-600 text-2xl`}
+                      />
+                    </>
+                  ) : (
+                    "Load More"
+                  )}
+                </button>
+              </div>
+            ) : null}
+          </>
+        ) : null}
+
+        {searchResult.isError ? <ErrorState className="min-h-[300px]" /> : null}
+      </div>
+    </>
   );
 };
 

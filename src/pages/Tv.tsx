@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
 import { useTvDetailsQuery } from "../api/tvApi";
 import TvAssets from "../common/components/pages/tv/TvAssets";
@@ -21,6 +22,7 @@ const Tv = () => {
 
   return (
     <>
+      <Helmet>{isSuccess ? <title>{data.name} - MVX</title> : null}</Helmet>
       <TvDetails
         isSuccess={isSuccess}
         isLoading={isFetching || isLoading}

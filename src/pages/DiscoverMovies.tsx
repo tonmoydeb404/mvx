@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useLazyDiscoverMoviesQuery } from "../api/discoverApi";
 import MediaDisplayCard from "../common/components/cards/Media/MediaDisplayCard";
@@ -39,43 +40,48 @@ const DiscoverMovies = () => {
     : false;
 
   return (
-    <div className="container pt-28 pb-20">
-      <div className="flex items-center flex-wrap justify-between gap-x-10 gap-y-4">
-        <h3 className="text-2xl font-semibold">Discover Movies</h3>
+    <>
+      <Helmet>
+        <title>Discover Movies - MVX</title>
+      </Helmet>
+      <div className="container pt-28 pb-20">
+        <div className="flex items-center flex-wrap justify-between gap-x-10 gap-y-4">
+          <h3 className="text-2xl font-semibold">Discover Movies</h3>
 
-        <div className="flex flex-col w-full sm:flex-row sm:w-auto items-stretch gap-2">
-          {/* TODO: Add Genre Filtering here */}
-          <SortSelect
-            value={sortBy}
-            setValue={setSortBy}
-            className="form-select bg-secondary-800 border-secondary-700 py-1.5"
-            id="sortBy"
-          />
+          <div className="flex flex-col w-full sm:flex-row sm:w-auto items-stretch gap-2">
+            {/* TODO: Add Genre Filtering here */}
+            <SortSelect
+              value={sortBy}
+              setValue={setSortBy}
+              className="form-select bg-secondary-800 border-secondary-700 py-1.5"
+              id="sortBy"
+            />
+          </div>
+        </div>
+
+        <div className="mt-20">
+          {discoverResult.isLoading ? <Loading /> : null}
+          {discoverResult.isSuccess ? (
+            <InfiniteScroll
+              dataLength={discoverResult.data.results.length}
+              next={loadMore}
+              hasMore={hasMore}
+              loader={<Loading />}
+              endMessage={
+                <div className="flex items-center justify-center col-[1/-1] py-10">
+                  <b>No more movies</b>
+                </div>
+              }
+              className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-5 gap-y-10"
+            >
+              {discoverResult.data.results.map((item) => (
+                <MediaDisplayCard key={item.id} {...item} />
+              ))}
+            </InfiniteScroll>
+          ) : null}
         </div>
       </div>
-
-      <div className="mt-20">
-        {discoverResult.isLoading ? <Loading /> : null}
-        {discoverResult.isSuccess ? (
-          <InfiniteScroll
-            dataLength={discoverResult.data.results.length}
-            next={loadMore}
-            hasMore={hasMore}
-            loader={<Loading />}
-            endMessage={
-              <div className="flex items-center justify-center col-[1/-1] py-10">
-                <b>No more movies</b>
-              </div>
-            }
-            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-5 gap-y-10"
-          >
-            {discoverResult.data.results.map((item) => (
-              <MediaDisplayCard key={item.id} {...item} />
-            ))}
-          </InfiniteScroll>
-        ) : null}
-      </div>
-    </div>
+    </>
   );
 };
 
