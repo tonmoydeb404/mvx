@@ -65,7 +65,7 @@ const PersonDetails = ({
             {data.biography ? (
               <>
                 <h3 className="text-xl mb-2 font-medium">Biography</h3>
-                <p className="mb-16 text-secondary-base leading-relaxed whitespace-pre-wrap">
+                <p className="mb-16 text-background-content-muted leading-relaxed whitespace-pre-wrap">
                   {data.biography}
                 </p>
               </>
@@ -73,12 +73,16 @@ const PersonDetails = ({
             <div className="flex flex-col lg:flex-row lg:items-center gap-y-2 gap-x-5 mb-3 pb-2.5 border-b border-b-secondary-base">
               <div className="flex flex-wrap gap-x-4 gap-y-2">
                 <b>Birthdate:</b>
-                <span className="text-secondary-base">{data.birthday}</span>
+                <span className="text-background-content-muted">
+                  {data.birthday}
+                </span>
               </div>
               {data.deathday ? (
                 <div className="flex flex-wrap gap-4">
                   <b>Death Date</b>
-                  <span className="text-secondary-base">{data.deathday}</span>
+                  <span className="text-background-content-muted">
+                    {data.deathday}
+                  </span>
                 </div>
               ) : null}
             </div>
