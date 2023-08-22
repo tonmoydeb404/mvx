@@ -49,11 +49,10 @@ const DiscoverMovies = () => {
           <h3 className="text-2xl font-semibold">Discover Movies</h3>
 
           <div className="flex flex-col w-full sm:flex-row sm:w-auto items-stretch gap-2">
-            {/* TODO: Add Genre Filtering here */}
             <SortSelect
               value={sortBy}
               setValue={setSortBy}
-              className="form-select bg-secondary-base border-background-content-muted py-1.5"
+              className="form-select bg-secondary-base border-secondary-light py-1.5"
               id="sortBy"
             />
           </div>

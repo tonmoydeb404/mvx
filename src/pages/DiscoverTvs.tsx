@@ -49,7 +49,6 @@ const DiscoverTvs = () => {
           <h3 className="text-2xl font-semibold">Discover Tv Shows</h3>
 
           <div className="flex flex-col w-full sm:flex-row sm:w-auto items-stretch gap-2">
-            {/* TODO: Add Genre Filtering here */}
             <SortSelect
               value={sortBy}
               setValue={setSortBy}

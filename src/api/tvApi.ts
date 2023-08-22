@@ -120,5 +120,3 @@ export const {
   useLazyTvImagesQuery,
   useLazyTvVideosQuery,
 } = tvApi;
-
-// TODO: STRUCTURE THIS API
